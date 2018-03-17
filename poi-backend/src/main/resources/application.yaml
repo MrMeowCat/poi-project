@@ -1,4 +1,9 @@
 spring:
   data:
     mongodb:
-      database: poi-dev
+      database: poi_dev
+      host: localhost
+
+logging:
+  level:
+    org.springframework.web: info
