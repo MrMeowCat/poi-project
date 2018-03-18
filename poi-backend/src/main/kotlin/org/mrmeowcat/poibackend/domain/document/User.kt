@@ -7,16 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document
 class User : AbstractDocument() {
 
     @Indexed(unique = true)
-    lateinit var name: String
+    var name: String? = null
 
     @Indexed(unique = true)
-    lateinit var email: String
+    var email: String? = null
 
-    lateinit var password: String
+    var password: String? = null
 
-    lateinit var roles: List<String>
+    var roles: List<String> = mutableListOf()
 
     var enabled = true
-
-
 }

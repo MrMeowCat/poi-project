@@ -3,16 +3,34 @@ package org.mrmeowcat.poibackend.domain.document
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.annotation.Version
 import java.util.*
+import kotlin.reflect.full.memberProperties
 
 abstract class AbstractDocument {
 
     @Id
-    lateinit var id: String
+    var id: String? = null
 
     @CreatedDate
-    lateinit var createDate: Date
+    var createDate: Date? = null
 
     @LastModifiedDate
-    lateinit var updateDate: Date
+    var updateDate: Date? = null
+
+    @Version
+    var version = 0
+
+    override fun toString(): String {
+        val props = this::class.memberProperties
+        val sb = StringBuilder("${this::class.simpleName}(")
+        for ((index, prop) in props.withIndex()) {
+            sb.append("${prop.name}=${prop.call(this)}, ")
+            if (index == props.size - 1) {
+                sb.delete(sb.length - 2, sb.length)
+            }
+        }
+
+        return sb.append(")").toString()
+    }
 }

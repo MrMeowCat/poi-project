@@ -3,9 +3,5 @@ spring:
     banner-mode: "off"
   data:
     mongodb:
-      database: poi_dev
+      database: poi_test
       host: localhost
-
-logging:
-  level:
-    org.springframework.web: info
