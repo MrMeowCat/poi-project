@@ -24,6 +24,7 @@ class DefaultUserService : AbstractDBService(), UserService {
 
     override fun save(o: User) {
         repositories.users.save(o)
+        repositories.versions.createVersion(o)
     }
 
     override fun delete(o: User) {

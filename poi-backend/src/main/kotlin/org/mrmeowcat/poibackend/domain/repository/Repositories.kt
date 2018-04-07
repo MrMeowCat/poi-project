@@ -5,4 +5,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class Repositories @Autowired
-constructor(val users: UserRepository)
+constructor(val users: UserRepository,
+            val versions: VersionRepository)

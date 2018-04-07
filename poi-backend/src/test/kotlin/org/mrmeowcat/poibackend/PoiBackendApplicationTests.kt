@@ -19,8 +19,9 @@ class PoiBackendApplicationTests {
 	@Test
 	fun test_saveUser() {
 
-        var user = userService.findByName("test3")
-        user.roles = mutableListOf("USER", "GUEST", "EDITOR")
+        var user = userService.findByName("user")
+        user.roles = mutableListOf("USER", "GUEST")
+        user.password = "1"
         userService.save(user)
 
 	}
@@ -28,8 +29,7 @@ class PoiBackendApplicationTests {
     @Test
     fun test_createUser() {
         var user = User()
-        user.name = "test"
-        user.email = "test"
+        user.name = "user"
         userService.save(user)
     }
 

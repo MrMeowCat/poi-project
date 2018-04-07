@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import org.mrmeowcat.poibackend.application.security.Credentials
 import org.mrmeowcat.poibackend.application.security.JwtUtils
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetails
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -47,5 +48,6 @@ class JwtAuthenticationFilter internal constructor(path: String, authenticationM
     override fun unsuccessfulAuthentication(request: HttpServletRequest,
                                             response: HttpServletResponse,
                                             failed: AuthenticationException) {
+        response.status = HttpStatus.FORBIDDEN.value()
     }
 }
