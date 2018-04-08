@@ -6,6 +6,9 @@ import java.util.*
 
 interface UserRepository : MongoRepository<User, String> {
 
-    fun findByName(name: String): Optional<User>
+    fun findByUsername(username: String): Optional<User>
 
+    fun existsByUsername(username: String): Boolean
+
+    fun existsByEmail(email: String): Boolean
 }

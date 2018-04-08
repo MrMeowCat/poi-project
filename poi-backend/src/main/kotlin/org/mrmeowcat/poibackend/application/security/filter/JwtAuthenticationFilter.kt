@@ -2,7 +2,7 @@ package org.mrmeowcat.poibackend.application.security.filter
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import org.mrmeowcat.poibackend.application.security.Credentials
+import org.mrmeowcat.poibackend.application.dto.Credentials
 import org.mrmeowcat.poibackend.application.security.JwtUtils
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetails
 import org.springframework.http.HttpStatus

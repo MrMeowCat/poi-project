@@ -14,7 +14,7 @@ class SecurityUserDetails(val user: User) : UserDetails {
 
     override fun isEnabled() = user.enabled
 
-    override fun getUsername() = user.name
+    override fun getUsername() = user.username
 
     override fun getPassword() = user.password
 

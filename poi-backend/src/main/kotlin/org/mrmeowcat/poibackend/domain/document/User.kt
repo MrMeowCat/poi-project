@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 class User : AbstractDocument() {
 
     @Indexed(unique = true)
-    var name: String? = null
+    var username: String? = null
 
     @Indexed(unique = true)
     var email: String? = null

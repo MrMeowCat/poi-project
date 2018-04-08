@@ -9,7 +9,7 @@ internal class User2UserDtoMapper : Mapper<User, UserDto> {
 
     override fun map(e: User): UserDto {
         val id = e.id
-        val username = e.name
+        val username = e.username
         val roles = e.roles
         val enabled = e.enabled
         val user = UserDto(username, roles, enabled)

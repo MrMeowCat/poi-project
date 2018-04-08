@@ -19,7 +19,7 @@ class MapperTests {
     @Test
     fun test_convertUser2UserDto() {
         val user = User()
-        user.name = "!"
+        user.username = "!"
         user.email = "!"
         user.password = "!"
 

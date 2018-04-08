@@ -32,7 +32,7 @@ internal object JwtUtils {
         claims.put("roles", user.roles)
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(user.name)
+                .setSubject(user.username)
                 .setExpiration(Date(System.currentTimeMillis() + JWT_EXPIRES))
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
                 .compact()
