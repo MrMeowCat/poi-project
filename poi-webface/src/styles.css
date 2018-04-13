@@ -1,1 +1,164 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+a, a:hover, a:visited, a:focus, button, button:hover, button:focus, button:visited {
+  outline: 0;
+  border: none;
+  cursor: pointer;
+}
+ul {
+  list-style: none;
+}
+
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+.flex-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.flex-column-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*MARGIN*/
+.m-0 {
+  margin: 0;
+}
+.m-t-0 {
+  margin-top: 0;
+}
+.m-l-0 {
+  margin-left: 0;
+}
+.m-b-0 {
+  margin-bottom: 0;
+}
+.m-r-0 {
+  margin-right: 0;
+}
+.m-10 {
+  margin: 10px;
+}
+.m-t-10 {
+  margin-top: 10px;
+}
+.m-l-10 {
+  margin-left: 10px;
+}
+.m-b-10 {
+  margin-bottom: 10px;
+}
+.m-r-10 {
+  margin-right: 10px;
+}
+.m-20 {
+  margin: 20px;
+}
+.m-t-20 {
+  margin-top: 20px;
+}
+.m-l-20 {
+  margin-left: 20px;
+}
+.m-b-20 {
+  margin-bottom: 20px;
+}
+.m-r-20 {
+  margin-right: 20px;
+}
+.m-30 {
+  margin: 30px;
+}
+.m-t-30 {
+  margin-top: 30px;
+}
+.m-l-30 {
+  margin-left: 30px;
+}
+.m-b-30 {
+  margin-bottom: 30px;
+}
+.m-r-30 {
+  margin-right: 30px;
+}
+
+/*PADDING*/
+.p-0 {
+  padding: 0;
+}
+.p-t-0 {
+  padding-top: 0;
+}
+.p-l-0 {
+  padding-left: 0;
+}
+.p-b-0 {
+  padding-bottom: 0;
+}
+.p-r-0 {
+  padding-right: 0;
+}
+.p-10 {
+  padding: 10px;
+}
+.p-t-10 {
+  padding-top: 10px;
+}
+.p-l-10 {
+  padding-left: 10px;
+}
+.p-b-10 {
+  padding-bottom: 10px;
+}
+.p-r-10 {
+  padding-right: 10px;
+}
+.p-20 {
+  padding: 20px;
+}
+.p-t-20 {
+  padding-top: 20px;
+}
+.p-l-20 {
+  padding-left: 20px;
+}
+.p-b-20 {
+  padding-bottom: 20px;
+}
+.p-r-20 {
+  padding-right: 20px;
+}
+.p-30 {
+  padding: 30px;
+}
+.p-t-30 {
+  padding-top: 30px;
+}
+.p-l-30 {
+  padding-left: 30px;
+}
+.p-b-30 {
+  padding-bottom: 30px;
+}
+.p-r-30 {
+  padding-right: 30px;
+}

@@ -1,6 +1,6 @@
 package org.mrmeowcat.poibackend.application.controller.v1
 
-import org.mrmeowcat.poibackend.application.dto.SignUpRequest
+import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
 import org.mrmeowcat.poibackend.application.dto.UserDto
 import org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo
 import org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn
@@ -31,8 +31,8 @@ class UserController : AbstractController() {
 
     @PostMapping("signUp")
     fun signUp(@RequestBody signUpRequest: SignUpRequest?) : ResponseEntity<*> {
-        services.signUpService.signUp(signUpRequest)
-        return ResponseEntity.ok("")
+        val response = services.signUpService.signUp(signUpRequest)
+        return ResponseEntity.ok(response)
     }
 
     private fun getCurrentUser() : String {

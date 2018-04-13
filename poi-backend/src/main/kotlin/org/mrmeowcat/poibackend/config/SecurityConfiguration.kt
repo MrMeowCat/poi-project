@@ -35,6 +35,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatcher("/**")
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/signUp").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

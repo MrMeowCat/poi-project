@@ -1,0 +1,11 @@
+<div class="nav-container flex">
+  <div class="nav-auth p-20">
+    <button class="nav-login-btn" (click)="showAuthContainer()">Sign In</button>
+  </div>
+
+
+  <div class="auth-wrapper flex-middle" *ngIf="authContainerVisible" (click)="hideAuthContainer($event)">
+    <poi-authorization></poi-authorization>
+  </div>
+
+</div>

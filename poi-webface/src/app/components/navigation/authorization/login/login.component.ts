@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'poi-login',
@@ -10,19 +9,22 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class LoginComponent implements OnInit {
 
   static LOGIN_URL = "http://localhost:8080/api/v1/login";
-  loginForm: FormGroup;
+  username: string = "";
+  password: string = "";
+  rememberMe: boolean = false;
 
-  constructor(private http: HttpClient,
-              private fb: FormBuilder) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.loginForm = this.fb.group({
-      username: [''],
-      password: ['']
-    });
   }
 
-  login(body) {
+  login() {
+    let body = {
+      username: this.username,
+      password: this.password,
+      rememberMe: this.rememberMe
+    };
+
     console.log(body);
 
     const headers = new HttpHeaders({

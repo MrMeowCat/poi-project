@@ -7,7 +7,7 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import org.mrmeowcat.poibackend.application.dto.SignUpRequest
+import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
 import org.mrmeowcat.poibackend.domain.document.User
 import org.mrmeowcat.poibackend.domain.exception.SignUpValidationException
 import org.mrmeowcat.poibackend.domain.service.SignUpService

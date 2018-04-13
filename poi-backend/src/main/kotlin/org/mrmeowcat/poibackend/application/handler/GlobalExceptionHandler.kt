@@ -1,6 +1,5 @@
 package org.mrmeowcat.poibackend.application.handler
 
-import org.mrmeowcat.poibackend.application.dto.MessageResponse
 import org.mrmeowcat.poibackend.domain.exception.SignUpValidationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,7 +11,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(SignUpValidationException::class)
     fun handleSignUp(e: SignUpValidationException) : ResponseEntity<*> {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageResponse(e.message))
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.response)
     }
 
 }

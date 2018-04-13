@@ -1,0 +1,16 @@
+<div class="auth-container">
+  <div class="auth-tabs flex">
+    <div [class]="signInMode ? 'active' : ''">
+      <button (click)="signInMode = true">Sign In</button>
+      <span></span>
+    </div>
+    <div [class]="signInMode ? '' : 'active'">
+      <button (click)="signInMode = false">Sign Up</button>
+      <span></span>
+    </div>
+  </div>
+  <div class="auth-tab">
+    <poi-login *ngIf="signInMode"></poi-login>
+    <poi-signup *ngIf="!signInMode"></poi-signup>
+  </div>
+</div>

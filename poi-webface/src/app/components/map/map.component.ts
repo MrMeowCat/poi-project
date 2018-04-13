@@ -22,7 +22,10 @@ export class MapComponent implements OnInit {
         center: new google.maps.LatLng(coordinates.latitude, coordinates.longitude),
         zoom: 5,
         minZoom: 4,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false
       };
       this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
     });

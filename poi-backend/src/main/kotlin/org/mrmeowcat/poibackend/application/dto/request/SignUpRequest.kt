@@ -1,4 +1,6 @@
-package org.mrmeowcat.poibackend.application.dto
+package org.mrmeowcat.poibackend.application.dto.request
+
+import org.mrmeowcat.poibackend.application.dto.request.AbstractRequest
 
 data class SignUpRequest(val username: String?,
                          val email: String?,

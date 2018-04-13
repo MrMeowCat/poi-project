@@ -3,7 +3,6 @@ package org.mrmeowcat.poibackend
 import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mrmeowcat.poibackend.application.dto.SignUpRequest
 import org.mrmeowcat.poibackend.application.dto.UserDto
 import org.mrmeowcat.poibackend.domain.document.User
 import org.mrmeowcat.poibackend.domain.service.UserService

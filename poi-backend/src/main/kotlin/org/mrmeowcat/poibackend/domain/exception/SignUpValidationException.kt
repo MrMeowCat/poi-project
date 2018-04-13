@@ -1,8 +1,5 @@
 package org.mrmeowcat.poibackend.domain.exception
 
-class SignUpValidationException : RuntimeException {
+import org.mrmeowcat.poibackend.application.dto.response.SignUpValidationResponse
 
-    constructor() : super()
-    constructor(message: String) : super(message)
-    constructor(message: String, thr: Throwable) : super(message, thr)
-}
+class SignUpValidationException(val response: SignUpValidationResponse) : RuntimeException()

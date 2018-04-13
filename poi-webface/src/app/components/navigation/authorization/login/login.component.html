@@ -1,0 +1,18 @@
+<div class="auth-form">
+  <div class="auth-input">
+    <input [(ngModel)]="username" type="text" placeholder="Username">
+  </div>
+  <div class="auth-input">
+    <input [(ngModel)]="password" type="password" placeholder="Password">
+  </div>
+  <div class="auth-input">
+    <label class="auth-checkbox">
+      <input [(ngModel)]="rememberMe" type="checkbox">
+      <span></span>
+      Remember Me?
+    </label>
+  </div>
+  <div class="auth-input">
+    <button (click)="login()">Sign In</button>
+  </div>
+</div>

@@ -1,8 +1,11 @@
 package org.mrmeowcat.poibackend.domain.service.impl
 
 import com.google.common.base.Strings
-import org.mrmeowcat.poibackend.application.dto.SignUpRequest
+import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
+import org.mrmeowcat.poibackend.application.dto.response.SignUpValidationResponse
 import org.mrmeowcat.poibackend.domain.document.User
+import org.mrmeowcat.poibackend.domain.enums.Results
+import org.mrmeowcat.poibackend.domain.enums.ValidationErrors
 import org.mrmeowcat.poibackend.domain.exception.SignUpValidationException
 import org.mrmeowcat.poibackend.domain.service.AbstractDBService
 import org.mrmeowcat.poibackend.domain.service.SignUpService
@@ -20,9 +23,11 @@ class DefaultSignUpService : AbstractDBService(), SignUpService {
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
-    override fun signUp(signUpRequest: SignUpRequest?) {
+    override fun signUp(signUpRequest: SignUpRequest?) : SignUpValidationResponse {
 
-        signUpRequest ?: throw SignUpValidationException("sign_up_null")
+        val errors: MutableList<String> = mutableListOf()
+        signUpRequest ?: throw SignUpValidationException(
+                response(Results.FAIL.value, listOf(ValidationErrors.FORM_EMPTY.value)))
 
         val username = signUpRequest.username
         val email = signUpRequest.email
@@ -30,31 +35,41 @@ class DefaultSignUpService : AbstractDBService(), SignUpService {
         val confirm = signUpRequest.confirm
 
         if (Strings.isNullOrEmpty(username)) {
-            throw SignUpValidationException("username_empty")
+            errors.add(ValidationErrors.USERNAME_EMPTY.value)
         }
         if (Strings.isNullOrEmpty(email)) {
-            throw SignUpValidationException("email_empty")
+            errors.add(ValidationErrors.EMAIL_EMPTY.value)
         }
         if (Strings.isNullOrEmpty(password)) {
-            throw SignUpValidationException("password_empty")
+            errors.add(ValidationErrors.PASSWORD_EMPTY.value)
         }
         if (Strings.isNullOrEmpty(confirm)) {
-            throw SignUpValidationException("confirm_empty")
+            errors.add(ValidationErrors.CONFIRM_EMPTY.value)
         }
+
+        if (errors.isNotEmpty()) {
+            throw SignUpValidationException(response(Results.FAIL.value, errors))
+        }
+
         if (userService.existsByUsername(username!!)) {
-            throw SignUpValidationException("user_exists")
+            errors.add(ValidationErrors.USER_EXISTS.value)
+            throw SignUpValidationException(response(Results.FAIL.value, errors))
         }
         if (userService.existsByEmail(email!!)) {
-            throw SignUpValidationException("email_exists")
+            errors.add(ValidationErrors.EMAIL_EXISTS.value)
+            throw SignUpValidationException(response(Results.FAIL.value, errors))
         }
         if (!userService.isCorrectEmail(email)) {
-            throw SignUpValidationException("email_incorrect")
+            errors.add(ValidationErrors.EMAIL_INCORRECT.value)
+            throw SignUpValidationException(response(Results.FAIL.value, errors))
         }
         if (!userService.isCorrectPassword(password!!)) {
-            throw SignUpValidationException("password_incorrect")
+            errors.add(ValidationErrors.PASSWORD_INCORRECT.value)
+            throw SignUpValidationException(response(Results.FAIL.value, errors))
         }
         if (password != confirm) {
-            throw SignUpValidationException("password_mismatch")
+            errors.add(ValidationErrors.PASSWORD_MISMATCH.value)
+            throw SignUpValidationException(response(Results.FAIL.value, errors))
         }
 
         val user = User()
@@ -64,5 +79,10 @@ class DefaultSignUpService : AbstractDBService(), SignUpService {
         user.enabled = true
         user.roles = listOf("USER")
         userService.save(user)
+        return response(Results.OK.value, errors)
+    }
+
+    private fun response(status: String, errors: List<String>) : SignUpValidationResponse {
+        return SignUpValidationResponse(status, errors)
     }
 }

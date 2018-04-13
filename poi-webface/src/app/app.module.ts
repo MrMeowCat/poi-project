@@ -5,9 +5,12 @@ import { RouterModule, Routes } from "@angular/router";
 
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from "./components/login/login.component";
+import { LoginComponent } from "./components/navigation/authorization/login/login.component";
 import { HttpClientModule } from "@angular/common/http";
 import { MapComponent } from './components/map/map.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { SignupComponent } from './components/navigation/authorization/signup/signup.component';
+import { AuthorizationComponent } from './components/navigation/authorization/authorization.component';
 
 const routes = [
 
@@ -17,7 +20,10 @@ const routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MapComponent
+    MapComponent,
+    NavigationComponent,
+    SignupComponent,
+    AuthorizationComponent
   ],
   imports: [
     BrowserModule,

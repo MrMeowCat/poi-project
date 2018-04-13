@@ -1,0 +1,38 @@
+.auth-container {
+  background: #fafafa;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.25);
+  width: 500px;
+}
+.auth-tabs {
+  border-bottom: 1px solid #ebebeb;
+}
+.auth-tabs div {
+  width: 100%;
+}
+.auth-tabs button {
+  font-weight: bold;
+  font-size: 0.9em;
+  width: 100%;
+  padding: 30px;
+  color: #aaa;
+  background: inherit;
+  transition: all .2s ease;
+}
+.auth-tabs button:hover {
+  color: #222;
+}
+.auth-tabs span {
+  display: block;
+  height: 4px;
+  width: 100%;
+}
+.auth-tabs .active button {
+  color: #333;
+}
+.auth-tabs .active span {
+  background: #ffe800;
+}
+.auth-tab {
+  padding: 24px;
+}
