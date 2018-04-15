@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {LoginRequest} from "../../../../models/login-request";
+import {LoginService} from "../../../../services/login.service";
+import {FormControl} from "@angular/forms";
+
+declare var $: any;
 
 @Component({
   selector: 'poi-login',
@@ -8,34 +12,28 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class LoginComponent implements OnInit {
 
-  static LOGIN_URL = "http://localhost:8080/api/v1/login";
-  username: string = "";
-  password: string = "";
-  rememberMe: boolean = false;
+  success = true;
 
-  constructor(private http: HttpClient) { }
+  rememberMeParam = {
+    rememberMe: false
+  };
+
+  constructor(private loginService: LoginService,
+              public loginRequest: LoginRequest) {
+  }
 
   ngOnInit() {
   }
 
   login() {
-    let body = {
-      username: this.username,
-      password: this.password,
-      rememberMe: this.rememberMe
-    };
+    this.success = true;
 
-    console.log(body);
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-
-    this.http.post(LoginComponent.LOGIN_URL, body, {headers}).subscribe(res => {
-      console.log(res);
-    }, err => {
-      console.log(err);
-    });
+    this.loginService.login(this.loginRequest, this.rememberMeParam)
+      .then(res => {
+        //todo close wrapper
+      })
+      .catch(err => {
+        this.success = false;
+      });
   }
 }

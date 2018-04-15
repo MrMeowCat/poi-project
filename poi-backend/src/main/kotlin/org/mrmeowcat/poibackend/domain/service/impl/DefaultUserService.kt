@@ -15,11 +15,15 @@ class DefaultUserService : AbstractDBService(), UserService {
     @Autowired private lateinit var appConfig: AppConfig
 
     override fun findById(id: String): User {
-        return repositories.users.findById(id).orElseThrow { DocumentNotFoundException() }
+        return repositories.users.findById(id).orElseThrow {
+            DocumentNotFoundException("User not found - id: $id")
+        }
     }
 
     override fun findByUsername(username: String): User {
-        return repositories.users.findByUsername(username).orElseThrow { DocumentNotFoundException() }
+        return repositories.users.findByUsername(username).orElseThrow {
+            DocumentNotFoundException("User not found - username: $username")
+        }
     }
 
     override fun findAll(): List<User> {

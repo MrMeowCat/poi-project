@@ -17,4 +17,6 @@ class User : AbstractDocument() {
     var roles: List<String> = mutableListOf()
 
     var enabled = true
+
+    var language: String? = null
 }

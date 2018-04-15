@@ -7,14 +7,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import java.util.*
+import javax.servlet.http.HttpServletRequest
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-internal object JwtUtils {
-    const val JWT_HEADER = "Authorization"
+internal object AuthUtils {
+
+    const val REMEMBER_ME_PARAM = "rememberMe"
+    const val REMEMBER_ME_COOKIE = "rememberme"
+    const val REMEMBER_ME_EXPIRES = 86400000
+    const val AUTHORIZATION_HEADER = "Authorization"
     const val JWT_SCHEMA = "Bearer "
-    const val JWT_EXPIRES = 86400000L
+    const val JWT_EXPIRES = 86400000
     private const val JWT_SECRET = "8fc4a0b6-b674-43ca-8ca1-a8836f6d8234"
+
+    fun getRememberMeParamValue(request: HttpServletRequest) : Boolean {
+        val rememberMe = request.getParameter(REMEMBER_ME_PARAM)
+        return rememberMe?.toBoolean() == true
+    }
 
     fun getAuthentication(token: String) : Authentication? {
         val tokenBody = Jwts.parser()

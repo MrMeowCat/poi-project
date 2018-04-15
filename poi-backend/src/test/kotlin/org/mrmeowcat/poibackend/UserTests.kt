@@ -43,7 +43,7 @@ class UserTests {
         var user = userService.findByUsername("test")
         println(user)
 
-        var userDto = UserDto("asd", mutableListOf(), true)
+        var userDto = UserDto("asd", mutableListOf(), true, "en")
         println(userDto)
     }
 

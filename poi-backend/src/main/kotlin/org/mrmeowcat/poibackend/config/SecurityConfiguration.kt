@@ -1,7 +1,7 @@
 package org.mrmeowcat.poibackend.config
 
-import org.mrmeowcat.poibackend.application.security.filter.JwtAuthenticationFilter
-import org.mrmeowcat.poibackend.application.security.filter.JwtProcessingFilter
+import org.mrmeowcat.poibackend.application.security.filter.LoginFilter
+import org.mrmeowcat.poibackend.application.security.filter.TokenFilter
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -36,13 +36,16 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/signUp").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/userExists").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/v1/setLocale").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/currentUser").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(JwtProcessingFilter(authenticationManager()))
-                .addFilter(JwtAuthenticationFilter("/api/v1/login", authenticationManager()))
+                .addFilter(TokenFilter(authenticationManager()))
+                .addFilter(LoginFilter("/api/v1/login", authenticationManager()))
 
     }
 
@@ -61,6 +64,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
         val source = UrlBasedCorsConfigurationSource()
         val configuration = CorsConfiguration()
         configuration.applyPermitDefaultValues()
+        configuration.allowCredentials = true
         configuration.allowedMethods = mutableListOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         source.registerCorsConfiguration("/**", configuration)
         return source

@@ -1,18 +1,18 @@
 <div class="auth-form">
-  <div class="auth-input">
-    <input type="text" placeholder="Username">
+  <div [class]="usernameValid ? 'auth-input' : 'auth-input invalid'">
+    <input type="text" placeholder="Username" [(ngModel)]="signUpRequest.username">
   </div>
-  <div class="auth-input">
-    <input type="email" placeholder="Email">
+  <div [class]="emailValid ? 'auth-input' : 'auth-input invalid'">
+    <input type="email" placeholder="Email" [(ngModel)]="signUpRequest.email">
   </div>
-  <div class="auth-input">
-    <input type="password" placeholder="Password">
+  <div [class]="passwordValid ? 'auth-input' : 'auth-input invalid'">
+    <input type="password" placeholder="Password" [(ngModel)]="signUpRequest.password">
   </div>
-  <div class="auth-input">
-    <input type="password" placeholder="Confirm Password">
+  <div [class]="confirmValid ? 'auth-input' : 'auth-input invalid'">
+    <input type="password" placeholder="Confirm Password" [(ngModel)]="signUpRequest.confirm">
   </div>
 
   <div class="auth-input">
-    <button (click)="signIn()">Sign In</button>
+    <button (click)="signUp()">Sign Up</button>
   </div>
 </div>

@@ -8,6 +8,9 @@
 .auth-input:last-of-type {
   margin-bottom: 0;
 }
+.auth-input.invalid > input {
+  border: 2px solid #ff0000;
+}
 input[type="text"], input[type="password"], input[type="email"] {
   width: 100%;
   line-height: 2em;
@@ -20,7 +23,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
   outline: 0;
-  border: 2px solid #ffe800;
+  border: 2px solid #ffe800 !important;
 }
 .auth-checkbox {
   position: relative;

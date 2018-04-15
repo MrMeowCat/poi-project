@@ -12,7 +12,8 @@ internal class User2UserDtoMapper : Mapper<User, UserDto> {
         val username = e.username
         val roles = e.roles
         val enabled = e.enabled
-        val user = UserDto(username, roles, enabled)
+        val language = e.language
+        val user = UserDto(username, roles, enabled, language)
         user.id = e.id
         return user
     }

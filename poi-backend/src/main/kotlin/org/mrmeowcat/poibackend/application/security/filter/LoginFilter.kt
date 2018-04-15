@@ -3,7 +3,7 @@ package org.mrmeowcat.poibackend.application.security.filter
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.mrmeowcat.poibackend.application.dto.request.Credentials
-import org.mrmeowcat.poibackend.application.security.JwtUtils
+import org.mrmeowcat.poibackend.application.security.AuthUtils
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetails
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -13,10 +13,11 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import javax.servlet.FilterChain
+import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtAuthenticationFilter internal constructor(path: String, authenticationManager: AuthenticationManager)
+class LoginFilter internal constructor(path: String, authenticationManager: AuthenticationManager)
     : UsernamePasswordAuthenticationFilter() {
 
     init {
@@ -39,10 +40,19 @@ class JwtAuthenticationFilter internal constructor(path: String, authenticationM
                                           chain: FilterChain,
                                           authResult: Authentication) {
         val user = (authResult.principal as SecurityUserDetails).user
-        val token = JwtUtils.createToken(user)
-        response.addHeader(JwtUtils.JWT_HEADER, JwtUtils.JWT_SCHEMA + token)
+        val token = AuthUtils.createToken(user)
+        val rememberMe = AuthUtils.getRememberMeParamValue(request)
         response.addHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
-        response.addHeader("Access-Control-Expose-Headers", JwtUtils.JWT_HEADER)
+        response.writer.write("{\"jwt\":\"$token\"}")
+
+        if (!rememberMe) return
+
+        val cookie = Cookie(AuthUtils.REMEMBER_ME_COOKIE, token)
+        cookie.isHttpOnly = true
+        cookie.domain = "localhost"
+        cookie.path = "/"
+        cookie.maxAge = AuthUtils.REMEMBER_ME_EXPIRES / 1000
+        response.addCookie(cookie)
     }
 
     override fun unsuccessfulAuthentication(request: HttpServletRequest,
