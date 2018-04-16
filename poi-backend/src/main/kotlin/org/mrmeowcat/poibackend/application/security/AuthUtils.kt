@@ -3,6 +3,7 @@ package org.mrmeowcat.poibackend.application.security
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.apache.commons.lang3.RandomStringUtils
+import org.mrmeowcat.poibackend.config.SecurityConfig
 import org.mrmeowcat.poibackend.domain.document.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -16,13 +17,6 @@ import kotlin.collections.HashMap
 internal object AuthUtils {
 
     const val REMEMBER_ME_PARAM = "rememberMe"
-    const val REMEMBER_ME_COOKIE = "rememberme"
-    const val REMEMBER_ME_EXPIRES = 86400000
-    const val JWT_EXPIRES = 86400000
-    const val CSRF_TOKEN_HEADER = "X-CSRF-TOKEN"
-    const val CSRF_TOKEN_COOKIE = "csrftoken"
-    const val CSRF_TOKEN_LENGTH = 64
-    private const val JWT_SECRET = "8fc4a0b6-b674-43ca-8ca1-a8836f6d8234"
 
     fun getRememberMeParamValue(request: HttpServletRequest) : Boolean {
         val rememberMe = request.getParameter(REMEMBER_ME_PARAM)
@@ -31,7 +25,7 @@ internal object AuthUtils {
 
     fun getAuthentication(token: String) : Authentication? {
         val tokenBody = Jwts.parser()
-                .setSigningKey(JWT_SECRET)
+                .setSigningKey(SecurityConfig.JWT_SECRET)
                 .parseClaimsJws(token)
                 .body
 
@@ -46,8 +40,8 @@ internal object AuthUtils {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.username)
-                .setExpiration(Date(System.currentTimeMillis() + JWT_EXPIRES))
-                .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
+                .setExpiration(Date(System.currentTimeMillis() + SecurityConfig.JWT_AGE))
+                .signWith(SignatureAlgorithm.HS256, SecurityConfig.JWT_SECRET)
                 .compact()
     }
 
@@ -55,7 +49,7 @@ internal object AuthUtils {
         if (request.cookies == null) return null
 
         for (cookie in request.cookies) {
-            if (cookie.name == REMEMBER_ME_COOKIE) {
+            if (cookie.name == SecurityConfig.REMEMBER_ME_COOKIE_NAME) {
                 return cookie.value
             }
         }
@@ -64,14 +58,18 @@ internal object AuthUtils {
     }
 
     fun createCsrfToken() : String {
-        return RandomStringUtils.randomAlphanumeric(CSRF_TOKEN_LENGTH)
+        return RandomStringUtils.randomAlphanumeric(SecurityConfig.CSRF_TOKEN_LENGTH)
     }
 
+    /**
+     * CSRF protection pattern
+     * Request should contain both cookie/jwt claim and header with csrf token
+     */
     fun validateCsrfTokens(request: HttpServletRequest) : Boolean {
-        val headerToken = request.getHeader(CSRF_TOKEN_HEADER) ?: return false
+        val headerToken = request.getHeader(SecurityConfig.CSRF_TOKEN_HEADER) ?: return false
 
         for (cookie in request.cookies) {
-            if (cookie.name == CSRF_TOKEN_COOKIE) {
+            if (cookie.name == SecurityConfig.CSRF_COOKIE_NAME) {
                 return cookie.value == headerToken
             }
         }
@@ -82,7 +80,8 @@ internal object AuthUtils {
     fun createCookie(name: String, value: String?, age: Int?, httpOnly: Boolean) : Cookie {
         val cookie = Cookie(name, value)
         cookie.isHttpOnly = httpOnly
-        cookie.domain = "localhost"
+        cookie.secure = SecurityConfig.COOKIE_SECURE
+        cookie.domain = SecurityConfig.COOKIE_DOMAIN
         cookie.path = "/"
 
         if (age != null) {

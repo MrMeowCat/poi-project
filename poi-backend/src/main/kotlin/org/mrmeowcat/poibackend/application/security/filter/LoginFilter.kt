@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import org.mrmeowcat.poibackend.application.dto.request.Credentials
 import org.mrmeowcat.poibackend.application.security.AuthUtils
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetails
+import org.mrmeowcat.poibackend.config.SecurityConfig
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -41,10 +42,10 @@ class LoginFilter internal constructor(path: String, authenticationManager: Auth
         val token = AuthUtils.createJwtToken(user)
         val csrfToken = AuthUtils.createCsrfToken()
         val rememberMe = AuthUtils.getRememberMeParamValue(request)
-        val age = if (rememberMe) AuthUtils.REMEMBER_ME_EXPIRES / 1000 else null
+        val age = if (rememberMe) SecurityConfig.AUTH_COOKIE_AGE / 1000 else null
 
-        val jwtCookie = AuthUtils.createCookie(AuthUtils.REMEMBER_ME_COOKIE, token, age, true)
-        val csrfCookie = AuthUtils.createCookie(AuthUtils.CSRF_TOKEN_COOKIE, csrfToken, age, false)
+        val jwtCookie = AuthUtils.createCookie(SecurityConfig.REMEMBER_ME_COOKIE_NAME, token, age, true)
+        val csrfCookie = AuthUtils.createCookie(SecurityConfig.CSRF_COOKIE_NAME, csrfToken, age, false)
 
         response.addCookie(jwtCookie)
         response.addCookie(csrfCookie)

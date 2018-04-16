@@ -1,15 +1,11 @@
 package org.mrmeowcat.poibackend.config
 
-import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.PropertySource
+import java.util.*
 
-@Configuration
-@ConfigurationProperties
-@PropertySource("classpath:app_config.yaml")
-class AppConfig {
+object AppConfig {
 
-    lateinit var domain: String
-    lateinit var emailPattern: String
-    lateinit var passwordPattern: String
+    private val bundle = ResourceBundle.getBundle("app_config")
+    val DOMAIN = bundle.getString("application.domain")
+    val EMAIL_PATTERN = bundle.getString("validation.emailPattern")
+    val PASSWORD_PATTERN = bundle.getString("validation.passwordPattern")
 }

@@ -19,12 +19,26 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import java.util.*
 
 
 @Configuration
 @EnableWebSecurity
 //@EnableOAuth2Sso
-class SecurityConfiguration : WebSecurityConfigurerAdapter() {
+class SecurityConfig : WebSecurityConfigurerAdapter() {
+
+    companion object {
+        private val bundle = ResourceBundle.getBundle("security")
+        val COOKIE_DOMAIN = bundle.getString("auth.cookie.domain")
+        val COOKIE_SECURE = bundle.getString("auth.cookie.secure")!!.toBoolean()
+        val AUTH_COOKIE_AGE = bundle.getString("auth.cookie.age").toInt()
+        val REMEMBER_ME_COOKIE_NAME = bundle.getString("auth.cookie.rememberMe.name")
+        val CSRF_COOKIE_NAME = bundle.getString("auth.cookie.csrf.name")
+        val CSRF_TOKEN_LENGTH = bundle.getString("auth.token.csrf.length").toInt()
+        val CSRF_TOKEN_HEADER = bundle.getString("auth.token.csrf.header")
+        val JWT_AGE = bundle.getString("auth.token.jwt.age").toInt()
+        val JWT_SECRET = bundle.getString("auth.token.jwt.secret")
+    }
 
     @Autowired
     lateinit var securityUserDetailsService: SecurityUserDetailsService
