@@ -14,7 +14,7 @@ class TokenFilter(authenticationManager: AuthenticationManager)
     override fun doFilterInternal(request: HttpServletRequest,
                                   response: HttpServletResponse,
                                   chain: FilterChain) {
-        val token = getToken(request)
+        val token = AuthUtils.getToken(request)
 
         if (token != null) {
             val authentication = AuthUtils.getAuthentication(token)
@@ -22,20 +22,5 @@ class TokenFilter(authenticationManager: AuthenticationManager)
         }
 
         chain.doFilter(request, response)
-    }
-
-    private fun getToken(request: HttpServletRequest) : String? {
-        val token = request.getHeader(AuthUtils.AUTHORIZATION_HEADER)
-
-        if (token != null) return token
-        if (request.cookies == null) return null
-
-        for (cookie in request.cookies) {
-            if (cookie.name == AuthUtils.REMEMBER_ME_COOKIE) {
-                return cookie.value
-            }
-        }
-
-        return null
     }
 }

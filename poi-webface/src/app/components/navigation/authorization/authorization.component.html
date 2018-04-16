@@ -10,7 +10,14 @@
     </div>
   </div>
   <div class="auth-tab">
-    <poi-login *ngIf="signInMode"></poi-login>
-    <poi-signup *ngIf="!signInMode"></poi-signup>
+    <poi-login *ngIf="signInMode"
+               (onLogin)="login($event)"
+               [loginSuccess]="loginSuccess"></poi-login>
+    <poi-signup *ngIf="!signInMode"
+                (onSignUp)="signUp($event)"
+                [usernameValid]="usernameValid"
+                [emailValid]="emailValid"
+                [passwordValid]="passwordValid"
+                [confirmValid]="confirmValid"></poi-signup>
   </div>
 </div>

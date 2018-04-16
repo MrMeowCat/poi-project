@@ -47,4 +47,19 @@ internal object AuthUtils {
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
                 .compact()
     }
+
+    fun getToken(request: HttpServletRequest) : String? {
+        val token = request.getHeader(AUTHORIZATION_HEADER)
+
+        if (token != null) return token
+        if (request.cookies == null) return null
+
+        for (cookie in request.cookies) {
+            if (cookie.name == REMEMBER_ME_COOKIE) {
+                return cookie.value
+            }
+        }
+
+        return null
+    }
 }

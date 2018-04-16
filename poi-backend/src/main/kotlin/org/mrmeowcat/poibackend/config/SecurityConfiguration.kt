@@ -2,6 +2,7 @@ package org.mrmeowcat.poibackend.config
 
 import org.mrmeowcat.poibackend.application.security.filter.LoginFilter
 import org.mrmeowcat.poibackend.application.security.filter.TokenFilter
+import org.mrmeowcat.poibackend.application.security.handler.LogoutHandler
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -46,6 +48,8 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .and()
                 .addFilter(TokenFilter(authenticationManager()))
                 .addFilter(LoginFilter("/api/v1/login", authenticationManager()))
+                .logout().logoutRequestMatcher(AntPathRequestMatcher("/api/v1/logout", HttpMethod.POST.name))
+                .logoutSuccessHandler(LogoutHandler())
 
     }
 

@@ -1,8 +1,8 @@
 <div class="auth-form">
-  <div [class]="success ? 'auth-input' : 'auth-input invalid'">
+  <div [class]="loginSuccess ? 'auth-input' : 'auth-input invalid'">
     <input [(ngModel)]="loginRequest.username" type="text" placeholder="Username">
   </div>
-  <div [class]="success ? 'auth-input' : 'auth-input invalid'">
+  <div [class]="loginSuccess ? 'auth-input' : 'auth-input invalid'">
     <input [(ngModel)]="loginRequest.password" type="password" placeholder="Password">
   </div>
   <div class="auth-input">

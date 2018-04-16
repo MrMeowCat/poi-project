@@ -45,13 +45,11 @@ class LoginFilter internal constructor(path: String, authenticationManager: Auth
         response.addHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
         response.writer.write("{\"jwt\":\"$token\"}")
 
-        if (!rememberMe) return
-
         val cookie = Cookie(AuthUtils.REMEMBER_ME_COOKIE, token)
         cookie.isHttpOnly = true
         cookie.domain = "localhost"
         cookie.path = "/"
-        cookie.maxAge = AuthUtils.REMEMBER_ME_EXPIRES / 1000
+        cookie.maxAge = if (rememberMe) AuthUtils.REMEMBER_ME_EXPIRES / 1000 else 0
         response.addCookie(cookie)
     }
 

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpService} from "./http.service";
-import {LoginService} from "./login.service";
+import {AuthService} from "./auth.service";
 import {SignUpService} from "./sign-up.service";
+import {UserService} from "./user.service";
 
 @NgModule({
   imports: [
@@ -11,8 +12,9 @@ import {SignUpService} from "./sign-up.service";
   declarations: [],
   providers: [
     HttpService,
-    LoginService,
-    SignUpService
+    AuthService,
+    SignUpService,
+    UserService
   ]
 })
 export class ServicesModule { }

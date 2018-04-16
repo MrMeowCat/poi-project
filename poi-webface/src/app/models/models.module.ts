@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {LoginRequest} from "./login-request";
 import {SignUpRequest} from "./sign-up-request";
+import {User} from "./user";
 
 @NgModule({
   imports: [
@@ -10,7 +11,8 @@ import {SignUpRequest} from "./sign-up-request";
   declarations: [],
   providers: [
     LoginRequest,
-    SignUpRequest
+    SignUpRequest,
+    User
   ]
 })
 export class ModelsModule { }

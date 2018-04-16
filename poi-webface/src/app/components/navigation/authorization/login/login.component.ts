@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoginRequest} from "../../../../models/login-request";
-import {LoginService} from "../../../../services/login.service";
-import {FormControl} from "@angular/forms";
 
 declare var $: any;
 
@@ -12,28 +10,23 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-  success = true;
+  @Input() loginSuccess;
+  @Output() onLogin = new EventEmitter<any>();
 
   rememberMeParam = {
     rememberMe: false
   };
 
-  constructor(private loginService: LoginService,
-              public loginRequest: LoginRequest) {
+  constructor(public loginRequest: LoginRequest) {
   }
 
   ngOnInit() {
   }
 
   login() {
-    this.success = true;
-
-    this.loginService.login(this.loginRequest, this.rememberMeParam)
-      .then(res => {
-        //todo close wrapper
-      })
-      .catch(err => {
-        this.success = false;
-      });
+    this.onLogin.emit({
+      loginRequest: this.loginRequest,
+      rememberMeParam: this.rememberMeParam
+    });
   }
 }
