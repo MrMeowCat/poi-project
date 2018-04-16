@@ -6,14 +6,12 @@ import org.mrmeowcat.poibackend.application.dto.request.Credentials
 import org.mrmeowcat.poibackend.application.security.AuthUtils
 import org.mrmeowcat.poibackend.application.security.service.SecurityUserDetails
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import javax.servlet.FilterChain
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -40,17 +38,16 @@ class LoginFilter internal constructor(path: String, authenticationManager: Auth
                                           chain: FilterChain,
                                           authResult: Authentication) {
         val user = (authResult.principal as SecurityUserDetails).user
-        val token = AuthUtils.createToken(user)
+        val token = AuthUtils.createJwtToken(user)
+        val csrfToken = AuthUtils.createCsrfToken()
         val rememberMe = AuthUtils.getRememberMeParamValue(request)
-        response.addHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
-        response.writer.write("{\"jwt\":\"$token\"}")
+        val age = if (rememberMe) AuthUtils.REMEMBER_ME_EXPIRES / 1000 else null
 
-        val cookie = Cookie(AuthUtils.REMEMBER_ME_COOKIE, token)
-        cookie.isHttpOnly = true
-        cookie.domain = "localhost"
-        cookie.path = "/"
-        cookie.maxAge = if (rememberMe) AuthUtils.REMEMBER_ME_EXPIRES / 1000 else 0
-        response.addCookie(cookie)
+        val jwtCookie = AuthUtils.createCookie(AuthUtils.REMEMBER_ME_COOKIE, token, age, true)
+        val csrfCookie = AuthUtils.createCookie(AuthUtils.CSRF_TOKEN_COOKIE, csrfToken, age, false)
+
+        response.addCookie(jwtCookie)
+        response.addCookie(csrfCookie)
     }
 
     override fun unsuccessfulAuthentication(request: HttpServletRequest,

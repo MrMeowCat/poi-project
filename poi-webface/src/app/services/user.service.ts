@@ -16,8 +16,8 @@ export class UserService {
 
   getCurrentUser() : Observable<any> {
     const options = this.http.getDefaultOptions();
-    this.authService.setAuthorizationHeader(options);
     options.withCredentials = true;
+    this.authService.setCsrfHeader(options);
     return this.http.get(Urls.CURRENT_USER_URL, options);
   }
 }
