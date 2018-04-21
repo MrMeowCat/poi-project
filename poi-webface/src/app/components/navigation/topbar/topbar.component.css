@@ -1,0 +1,101 @@
+.top-login-btn {
+  padding: 11px;
+  background: #ffe800;
+  font-weight: bold;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+  min-width: 90px;
+}
+.top-user {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: block;
+  background: #fafafa;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.4);
+  border-radius: 50%;
+}
+.top-user > img {
+  width: 100%;
+  height: 100%;
+}
+.top-user-popup, .top-lang-popup {
+  display: block;
+  position: relative;
+  float: left;
+  top: 24px;
+  left: -10px;
+  min-width: 220px;
+  background: #fafafa;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+  border-radius: 2px;
+  z-index: 12;
+}
+.top-lang-popup {
+  left: -20px;
+}
+.top-user-popup:before, .top-lang-popup:before {
+  position: absolute;
+  content: '';
+  top: -16px;
+  left: 24px;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 16px solid #fafafa;
+  filter: drop-shadow(0 -2px 1px rgba(0,0,0,0.066));
+}
+.top-user-popup > a, .top-lang-popup > a {
+  display: block;
+  width: 100%;
+  padding: 9px 24px;
+  line-height: 3em;
+  font-weight: 600;
+  font-size: 0.75em;
+  border-bottom: 1px solid #ebebeb;
+  transition: all 0.2s ease;
+}
+.top-user-popup > a:last-of-type {
+  border-bottom: none;
+}
+.top-user-popup > a:hover, .top-lang-popup > a:hover {
+  color: #ff0000;
+}
+.top-user-popup > h3 {
+  display: block;
+  width: 100%;
+  padding: 9px 24px;
+  margin: 0;
+  line-height: 3em;
+  font-weight: 700;
+  font-size: 1em;
+  border-bottom: 1px solid #ebebeb;
+}
+.top-lang {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: block;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
+  border-radius: 50%;
+}
+.top-lang > img {
+  width: 100%;
+}
+.top-lang-popup > a {
+  display: flex;
+}
+.top-lang-popup > a > img {
+  width: 30px;
+  height: 30px;
+}
+.top-lang-popup > a.active {
+  color: #ff0000;
+}
+.overflow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 11;
+}

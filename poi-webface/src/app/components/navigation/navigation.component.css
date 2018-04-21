@@ -4,17 +4,6 @@
   left: 0;
   z-index: 10;
 }
-.nav-auth {
-
-}
-.nav-login-btn {
-  padding: 12px;
-  background: #ffe800;
-  font-weight: bold;
-  border-radius: 2px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
-  min-width: 100px;
-}
 .auth-wrapper {
   position: fixed;
   top: 0;

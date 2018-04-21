@@ -15,7 +15,6 @@ declare const $: any;
 })
 export class NavigationComponent implements OnInit {
 
-  locales = Constants.LOCALES;
   authContainerVisible: boolean = false;
   user: User;
 
@@ -44,7 +43,7 @@ export class NavigationComponent implements OnInit {
     })
   }
 
-  logout() {
+  handleLogout($event) {
     this.authService.logout()
       .then(res => {
         this.user = undefined;
@@ -54,7 +53,7 @@ export class NavigationComponent implements OnInit {
       });
   }
 
-  showAuthContainer() {
+  showAuthContainer($event) {
     this.authContainerVisible = true;
   }
 

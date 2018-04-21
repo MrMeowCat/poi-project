@@ -1,0 +1,28 @@
+<div class="top">
+  <div class="top-left flex-center-r p-20">
+    <button class="top-login-btn m-l-10" *ngIf="!user" (click)="loginClick()">{{'NAV.SIGN_IN_BTN' | translate}}</button>
+    <a class="top-user m-l-10" *ngIf="user" (click)="toggleUserPopup()">
+      <img src="../../../../assets/img/def.png">
+      <div class="top-user-popup" *ngIf="userPopupVisible">
+        <h3>{{user.username}}</h3>
+        <a>My Profile</a>
+        <a>Settings</a>
+        <a (click)="logoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
+      </div>
+    </a>
+    <a class="top-lang m-l-30" (click)="toggleLangPopup()">
+      <img [src]="'../../../../assets/img/lang/' + currentLanguage() + '.svg'">
+      <div class="top-lang-popup" *ngIf="langPopupVisible">
+        <a *ngFor="let locale of locales"
+           [class]="locale == currentLanguage() ? 'flex-center-r active' : 'flex-center-r'"
+           (click)="changeLocale(locale, $event)">
+          <img [src]="'../../../../assets/img/lang/' + locale + '.svg'" class="m-r-20">
+          {{languages[locale]}}
+        </a>
+      </div>
+    </a>
+  </div>
+
+
+</div>
+<div class="overflow" *ngIf="userPopupVisible || langPopupVisible" (click)="hidePopups($event)"></div>
