@@ -1,6 +1,5 @@
 package org.mrmeowcat.poibackend.domain.service.impl
 
-import com.google.common.base.Strings
 import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
 import org.mrmeowcat.poibackend.application.dto.response.SignUpValidationResponse
 import org.mrmeowcat.poibackend.domain.document.User
@@ -10,6 +9,7 @@ import org.mrmeowcat.poibackend.domain.exception.SignUpValidationException
 import org.mrmeowcat.poibackend.domain.service.AbstractDBService
 import org.mrmeowcat.poibackend.domain.service.SignUpService
 import org.mrmeowcat.poibackend.domain.service.UserService
+import org.mrmeowcat.poibackend.util.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -34,16 +34,16 @@ class DefaultSignUpService : AbstractDBService(), SignUpService {
         val password = signUpRequest.password
         val confirm = signUpRequest.confirm
 
-        if (Strings.isNullOrEmpty(username)) {
+        if (StringUtils.isBlank(username)) {
             errors.add(ValidationErrors.USERNAME_EMPTY.value)
         }
-        if (Strings.isNullOrEmpty(email)) {
+        if (StringUtils.isBlank(email)) {
             errors.add(ValidationErrors.EMAIL_EMPTY.value)
         }
-        if (Strings.isNullOrEmpty(password)) {
+        if (StringUtils.isBlank(password)) {
             errors.add(ValidationErrors.PASSWORD_EMPTY.value)
         }
-        if (Strings.isNullOrEmpty(confirm)) {
+        if (StringUtils.isBlank(confirm)) {
             errors.add(ValidationErrors.CONFIRM_EMPTY.value)
         }
 

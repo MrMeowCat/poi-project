@@ -1,18 +1,22 @@
 <div class="auth-form">
   <div [class]="usernameValid ? 'auth-input' : 'auth-input invalid'">
-    <input type="text" placeholder="Username" [(ngModel)]="signUpRequest.username">
+    <input type="text" [(ngModel)]="signUpRequest.username"
+           placeholder="{{'NAV.AUTH.SIGN_UP.USERNAME_INP' | translate}}">
   </div>
   <div [class]="emailValid ? 'auth-input' : 'auth-input invalid'">
-    <input type="email" placeholder="Email" [(ngModel)]="signUpRequest.email">
+    <input type="email" [(ngModel)]="signUpRequest.email"
+           placeholder="{{'NAV.AUTH.SIGN_UP.EMAIL_INP' | translate}}">
   </div>
   <div [class]="passwordValid ? 'auth-input' : 'auth-input invalid'">
-    <input type="password" placeholder="Password" [(ngModel)]="signUpRequest.password">
+    <input type="password" [(ngModel)]="signUpRequest.password"
+           placeholder="{{'NAV.AUTH.SIGN_UP.PASSWORD_INP' | translate}}">
   </div>
   <div [class]="confirmValid ? 'auth-input' : 'auth-input invalid'">
-    <input type="password" placeholder="Confirm Password" [(ngModel)]="signUpRequest.confirm">
+    <input type="password" [(ngModel)]="signUpRequest.confirm"
+           placeholder="{{'NAV.AUTH.SIGN_UP.CONFIRM_INP' | translate}}">
   </div>
 
   <div class="auth-input">
-    <button (click)="signUp()">Sign Up</button>
+    <button (click)="signUp()">{{'NAV.AUTH.SIGN_UP.SIGN_UP_BTN' | translate}}</button>
   </div>
 </div>

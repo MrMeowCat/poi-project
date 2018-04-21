@@ -1,7 +1,11 @@
 <div class="nav-container flex">
   <div class="nav-auth p-20">
-    <button class="nav-login-btn" *ngIf="!user" (click)="showAuthContainer()">Sign In</button>
-    <button class="nav-login-btn" *ngIf="user" (click)="logout()">Sign Out</button>
+    <button class="nav-login-btn" *ngIf="!user" (click)="showAuthContainer()">{{'NAV.SIGN_IN_BTN' | translate}}</button>
+    <button class="nav-login-btn" *ngIf="user" (click)="logout()">{{'NAV.SIGN_OUT_BTN' | translate}}</button>
+
+    <button *ngFor="let locale of locales" class="nav-login-btn m-l-10" (click)="changeLocale(locale)">
+      {{locale.toUpperCase()}}
+    </button>
   </div>
 
 

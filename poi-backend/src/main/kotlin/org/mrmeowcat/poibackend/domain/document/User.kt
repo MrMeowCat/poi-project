@@ -18,5 +18,5 @@ class User : AbstractDocument() {
 
     var enabled = true
 
-    var language: String? = null
+    var language: String = "en"
 }

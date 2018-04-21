@@ -2,9 +2,9 @@ package org.mrmeowcat.poibackend.application.security
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.apache.commons.lang3.RandomStringUtils
 import org.mrmeowcat.poibackend.config.SecurityConfig
 import org.mrmeowcat.poibackend.domain.document.User
+import org.mrmeowcat.poibackend.util.StringUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -58,7 +58,7 @@ internal object AuthUtils {
     }
 
     fun createCsrfToken() : String {
-        return RandomStringUtils.randomAlphanumeric(SecurityConfig.CSRF_TOKEN_LENGTH)
+        return StringUtils.randomAlphanumeric(SecurityConfig.CSRF_TOKEN_LENGTH)
     }
 
     /**

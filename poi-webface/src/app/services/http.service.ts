@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
 
 export interface RequestOptions {
   headers?: HttpHeaders,
-  params?: HttpParams,
+  params?: any,
   withCredentials?: boolean,
   responseType?: 'json'
 }

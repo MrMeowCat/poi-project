@@ -1,12 +1,11 @@
 package org.mrmeowcat.poibackend.application.controller.v1
 
-import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
 import org.mrmeowcat.poibackend.application.dto.UserDto
+import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
 import org.mrmeowcat.poibackend.domain.document.User
 import org.mrmeowcat.poibackend.domain.exception.DocumentNotFoundException
 import org.slf4j.LoggerFactory
-import org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo
-import org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -30,12 +28,8 @@ class UserController : AbstractController() {
 
     @GetMapping("currentUser")
     fun getCurrentUser(request: HttpServletRequest) : ResponseEntity<*> {
-        val user = getCurrentUser()
+        val user = getCurrentUser()!!
         val userDto = mapper.map(user, UserDto::class)
-
-        val linkBuilder = methodOn(UserController::class.java).getCurrentUser(request)
-        userDto.add(linkTo(linkBuilder).withSelfRel())
-
         return ResponseEntity.ok(userDto)
     }
 
@@ -52,26 +46,29 @@ class UserController : AbstractController() {
     }
 
     @PutMapping("setLocale")
-    fun setLocale(
-            @RequestParam("locale", required = true) locale: String = "en",
-            response: HttpServletResponse) {
-        val cookie = Cookie("locale", locale)
-        cookie.domain = "localhost"
-        cookie.path = "/"
-        cookie.maxAge = 100
-        response.addCookie(cookie)
+    fun setLocale(@RequestParam("locale", required = true) locale: String = "en",
+                  response: HttpServletResponse) : ResponseEntity<Any> {
+        val user = getCurrentUser()
 
-        try {
-            val user = getCurrentUser()
+        if (user != null) {
             user.language = locale
             services.users.save(user)
-        } catch (e: DocumentNotFoundException) {
-            LOGGER.info("Setting locale $locale for anonymous user")
+            return ResponseEntity.status(HttpStatus.OK).build()
         }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build()
     }
 
-    private fun getCurrentUser() : User {
+    private fun getCurrentUser() : User? {
         val username = SecurityContextHolder.getContext().authentication.name
-        return services.users.findByUsername(username)
+        var user: User?
+
+        try {
+            user = services.users.findByUsername(username)
+        } catch (e: DocumentNotFoundException) {
+            return null
+        }
+
+        return user
     }
 }

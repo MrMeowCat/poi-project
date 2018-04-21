@@ -1,11 +1,11 @@
 <div class="auth-container">
   <div class="auth-tabs flex">
     <div [class]="signInMode ? 'active' : ''">
-      <button (click)="signInMode = true">Sign In</button>
+      <button (click)="signInMode = true">{{'NAV.AUTH.SIGN_IN_LBL' | translate}}</button>
       <span></span>
     </div>
     <div [class]="signInMode ? '' : 'active'">
-      <button (click)="signInMode = false">Sign Up</button>
+      <button (click)="signInMode = false">{{'NAV.AUTH.SIGN_UP_LBL' | translate}}</button>
       <span></span>
     </div>
   </div>

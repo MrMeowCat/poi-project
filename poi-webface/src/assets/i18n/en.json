@@ -1,0 +1,26 @@
+{
+  "NAV": {
+    "SIGN_IN_BTN":"Sign In",
+    "SIGN_OUT_BTN":"Sign Out",
+
+    "AUTH": {
+      "SIGN_IN_LBL":"Sign In",
+      "SIGN_UP_LBL":"Sign Up",
+
+      "LOGIN": {
+        "USERNAME_INP":"User Name",
+        "PASSWORD_INP":"Password",
+        "REMEMBER_ME_CHK":"Remember Me?",
+        "SIGN_IN_BTN":"Sign In"
+      },
+
+      "SIGN_UP": {
+        "USERNAME_INP":"User Name",
+        "EMAIL_INP":"Email",
+        "PASSWORD_INP":"Password",
+        "CONFIRM_INP":"Confirm Password",
+        "SIGN_UP_BTN":"Sign Up"
+      }
+    }
+  }
+}

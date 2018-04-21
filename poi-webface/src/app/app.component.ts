@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from "@ngx-translate/core";
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'poi-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'poi';
+
+  constructor(private translate: TranslateService,
+              private cookeis: CookieService) {
+    const locale = this.cookeis.get('locale');
+    translate.setDefaultLang('en');
+    translate.use(locale ? locale : 'en');
+  }
 }

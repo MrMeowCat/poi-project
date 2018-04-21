@@ -1,18 +1,20 @@
 <div class="auth-form">
   <div [class]="loginSuccess ? 'auth-input' : 'auth-input invalid'">
-    <input [(ngModel)]="loginRequest.username" type="text" placeholder="Username">
+    <input [(ngModel)]="loginRequest.username" type="text"
+           placeholder="{{'NAV.AUTH.LOGIN.USERNAME_INP' | translate}}">
   </div>
   <div [class]="loginSuccess ? 'auth-input' : 'auth-input invalid'">
-    <input [(ngModel)]="loginRequest.password" type="password" placeholder="Password">
+    <input [(ngModel)]="loginRequest.password" type="password"
+           placeholder="{{'NAV.AUTH.LOGIN.PASSWORD_INP' | translate}}">
   </div>
   <div class="auth-input">
     <label class="auth-checkbox">
       <input [(ngModel)]="rememberMeParam.rememberMe" type="checkbox">
       <span></span>
-      Remember Me?
+      {{'NAV.AUTH.LOGIN.REMEMBER_ME_CHK' | translate}}
     </label>
   </div>
   <div class="auth-input">
-    <button (click)="login()">Sign In</button>
+    <button (click)="login()">{{'NAV.AUTH.LOGIN.SIGN_IN_BTN' | translate}}</button>
   </div>
 </div>

@@ -1,0 +1,26 @@
+{
+  "NAV": {
+    "SIGN_IN_BTN":"Вход",
+    "SIGN_OUT_BTN":"Выход",
+
+    "AUTH": {
+      "SIGN_IN_LBL":"Вход",
+      "SIGN_UP_LBL":"Регистрация",
+
+      "LOGIN": {
+        "USERNAME_INP":"Никнейм",
+        "PASSWORD_INP":"Пароль",
+        "REMEMBER_ME_CHK":"Запомнить меня?",
+        "SIGN_IN_BTN":"Вход"
+      },
+
+      "SIGN_UP": {
+        "USERNAME_INP":"Никнейм",
+        "EMAIL_INP":"Почта",
+        "PASSWORD_INP":"Пароль",
+        "CONFIRM_INP":"Еще разок",
+        "SIGN_UP_BTN":"Регистрация"
+      }
+    }
+  }
+}

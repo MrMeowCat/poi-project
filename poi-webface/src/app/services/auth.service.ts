@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpService, RequestOptions} from "./http.service";
-import {LoginRequest} from "../models/login-request";
-import {Urls} from "../util/urls";
-import {Utils} from "../util/utils";
+import { Injectable } from '@angular/core';
+import { HttpService, RequestOptions } from "./http.service";
+import { LoginRequest } from "../models/login-request";
+import { Urls } from "../util/urls";
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable()
 export class AuthService {
@@ -10,10 +10,11 @@ export class AuthService {
   private static CSRF_TOKEN_COOKIE = 'csrftoken';
   private static CSRF_TOKEN_HEADER = 'X-CSRF-TOKEN';
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService,
+              private cookies: CookieService) {
   }
 
-  login(loginRequest: LoginRequest, rememberMeParam: any = {rememberMe: false}): Promise<any> {
+  login(loginRequest: LoginRequest, rememberMeParam: any = { rememberMe: false }): Promise<any> {
     const options = this.http.getDefaultOptions();
     options.params = rememberMeParam;
     options.withCredentials = true;
@@ -28,7 +29,7 @@ export class AuthService {
   }
 
   setCsrfHeader(options: RequestOptions) {
-    let csrfToken = Utils.getCookie(AuthService.CSRF_TOKEN_COOKIE);
+    let csrfToken = this.cookies.get(AuthService.CSRF_TOKEN_COOKIE);
     if (csrfToken) {
       options.headers = options.headers.append(AuthService.CSRF_TOKEN_HEADER, csrfToken);
     }

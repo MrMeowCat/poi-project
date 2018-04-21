@@ -8,4 +8,5 @@ export class Urls {
 
   static USERS_URL = Urls.BASE_PATH + "/users";
   static CURRENT_USER_URL = Urls.BASE_PATH + "/currentUser";
+  static SET_LOCALE_URL = Urls.BASE_PATH + "/setLocale";
 }

@@ -1,22 +1,30 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from "@angular/router";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from "@angular/router";
 
 
-import {AppComponent} from './app.component';
-import {LoginComponent} from "./components/navigation/authorization/login/login.component";
-import {HttpClientModule} from "@angular/common/http";
-import {MapComponent} from './components/map/map.component';
-import {NavigationComponent} from './components/navigation/navigation.component';
-import {SignupComponent} from './components/navigation/authorization/signup/signup.component';
-import {AuthorizationComponent} from './components/navigation/authorization/authorization.component';
-import {ServicesModule} from "./services/services.module";
-import {ModelsModule} from "./models/models.module";
+import { AppComponent } from './app.component';
+import { LoginComponent } from "./components/navigation/authorization/login/login.component";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { MapComponent } from './components/map/map.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { SignupComponent } from './components/navigation/authorization/signup/signup.component';
+import { AuthorizationComponent } from './components/navigation/authorization/authorization.component';
+import { ServicesModule } from "./services/services.module";
+import { ModelsModule } from "./models/models.module";
+import { HomeComponent } from './components/home/home.component';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-const routes = [
-
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'map', component: MapComponent },
 ];
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +33,8 @@ const routes = [
     MapComponent,
     NavigationComponent,
     SignupComponent,
-    AuthorizationComponent
+    AuthorizationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +42,18 @@ const routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     ServicesModule,
     ModelsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
