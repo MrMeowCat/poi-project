@@ -28,6 +28,8 @@ class DefaultUserService : AbstractDBService(), UserService {
     }
 
     override fun save(o: User) {
+        val previousVersion = repositories.versions.previousVersion(o)
+        if (o == previousVersion) return
         repositories.users.save(o)
         repositories.versions.createVersion(o)
     }

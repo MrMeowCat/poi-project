@@ -2,12 +2,19 @@ package org.mrmeowcat.poibackend.domain.repository
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mongodb.BasicDBObject
+import org.bson.Document
 import org.mrmeowcat.poibackend.domain.document.AbstractDocument
 import org.mrmeowcat.poibackend.domain.document.User
+import org.mrmeowcat.poibackend.domain.meta.NoVersioning
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoTemplate
+import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.Query
 import org.springframework.stereotype.Repository
 import kotlin.reflect.KClass
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.memberProperties
 
 @Repository
 class VersionRepository {
@@ -19,17 +26,30 @@ class VersionRepository {
     private lateinit var mongoTemplate: MongoTemplate
 
     companion object {
-        @JvmField val REDUNDANT_FIELDS = arrayOf("createDate", "updateDate", "version", "id")
         @JvmField val VERSION_MAP: Map<KClass<out AbstractDocument>, String> = mapOf(
                 Pair(User::class, "users_version")
         )
     }
 
+    fun <T : AbstractDocument> previousVersion(document: T) : T? {
+        val collection = VERSION_MAP.getValue(document::class)
+        val query = Query()
+        query.addCriteria(Criteria.where("id").`is`(document.id))
+                .with(Sort(Sort.Direction.DESC, "version"))
+
+        val previous = mongoTemplate.findOne(query, Document::class.java, collection)
+        previous ?: return null
+        return objectMapper.convertValue(previous["document"], document.javaClass)
+    }
+
     fun createVersion(document: AbstractDocument) {
         val collection = VERSION_MAP.getValue(document::class)
         val dbObject = objectMapper.convertValue(document, BasicDBObject::class.java)
+        val excludedFields = getExcludedFields(document)
 
-        removeRedundantFields(dbObject)
+        /*Remove fields marked as @NoVersioning and null fields*/
+        excludedFields.forEach { dbObject.removeField(it) }
+        dbObject.entries.removeIf { it.value == null }
 
         val obj = BasicDBObject("document", dbObject)
         obj["version"] = document.version
@@ -38,8 +58,13 @@ class VersionRepository {
         mongoTemplate.insert(obj, collection)
     }
 
-    private fun removeRedundantFields(document: BasicDBObject) {
-        REDUNDANT_FIELDS.forEach { document.removeField(it) }
-        document.entries.removeIf { it.value == null }
+    private fun getExcludedFields(document: AbstractDocument) : List<String> {
+        val props = document::class.memberProperties
+        val fields = mutableListOf<String>()
+        for (prop in props) {
+            prop.findAnnotation<NoVersioning>() ?: continue
+            fields.add(prop.name)
+        }
+        return fields
     }
 }
