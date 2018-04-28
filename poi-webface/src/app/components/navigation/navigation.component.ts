@@ -33,7 +33,11 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  handleSuccessLogin($event) {
+  onLoginClick($event) {
+    this.authContainerVisible = true;
+  }
+
+  onSuccessLogin($event) {
     this.userService.getCurrentUser().subscribe(user => {
       this.authContainerVisible = false;
       this.user = user;
@@ -43,7 +47,7 @@ export class NavigationComponent implements OnInit {
     })
   }
 
-  handleLogout($event) {
+  onLogout($event) {
     this.authService.logout()
       .then(res => {
         this.user = undefined;
@@ -53,22 +57,22 @@ export class NavigationComponent implements OnInit {
       });
   }
 
-  showAuthContainer($event) {
-    this.authContainerVisible = true;
-  }
-
-  hideAuthContainer($event) {
-    if ($($event.target).hasClass('auth-wrapper')) {
-      this.authContainerVisible = false;
-    }
-  }
-
-  changeLocale(locale: string) {
+  onLocaleChange(locale: string) {
     if (this.translate.currentLang == locale) return;
 
     this.userService.setLocale(locale).subscribe(res => {
       this.setLanguage(locale);
     });
+  }
+
+  onAvatarChange(avatar) {
+    if (!avatar) {
+      return;
+    }
+
+    this.user.avatarFull = avatar.avatarFull;
+    this.user.avatarThumbnail = avatar.avatarThumbnail;
+    this.user.avatarIcon = avatar.avatarIcon;
   }
 
   setLanguage(language) {
@@ -78,13 +82,9 @@ export class NavigationComponent implements OnInit {
     }
   }
 
-  setAvatar(avatar) {
-    if (!avatar) {
-      return;
+  hideAuthContainer($event) {
+    if ($($event.target).hasClass('auth-wrapper')) {
+      this.authContainerVisible = false;
     }
-
-    this.user.avatarFull = avatar.avatarFull;
-    this.user.avatarThumbnail = avatar.avatarThumbnail;
-    this.user.avatarIcon = avatar.avatarIcon;
   }
 }

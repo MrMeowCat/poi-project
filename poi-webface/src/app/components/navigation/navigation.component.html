@@ -1,13 +1,13 @@
 <div class="nav-container flex">
 
   <poi-topbar [user]="user"
-              (onLoginClick)="showAuthContainer($event)"
-              (onLogoutClick)="handleLogout($event)"
-              (onChangeLocale)="changeLocale($event)"
-              (onAvatarChanged)="setAvatar($event)"></poi-topbar>
+              (loginClick)="onLoginClick($event)"
+              (logoutClick)="onLogout($event)"
+              (localeChange)="onLocaleChange($event)"
+              (avatarChange)="onAvatarChange($event)"></poi-topbar>
 
   <div class="auth-wrapper flex-middle" *ngIf="authContainerVisible" (click)="hideAuthContainer($event)">
-    <poi-authorization (onSuccessLogin)="handleSuccessLogin($event)"></poi-authorization>
+    <poi-authorization (successLogin)="onSuccessLogin($event)"></poi-authorization>
   </div>
 
 </div>

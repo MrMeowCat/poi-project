@@ -12,7 +12,7 @@ export class SignupComponent implements OnInit {
   @Input() emailValid;
   @Input() passwordValid;
   @Input() confirmValid;
-  @Output() onSignUp = new EventEmitter<SignUpRequest>();
+  @Output() signUp = new EventEmitter<SignUpRequest>();
 
   constructor(public signUpRequest: SignUpRequest) {
   }
@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  signUp() {
-    this.onSignUp.emit(this.signUpRequest);
+  doSignUp() {
+    this.signUp.emit(this.signUpRequest);
   }
 }

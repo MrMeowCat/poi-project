@@ -11,7 +11,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   @Input() loginSuccess;
-  @Output() onLogin = new EventEmitter<any>();
+  @Output() login = new EventEmitter<any>();
 
   rememberMeParam = {
     rememberMe: false
@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.onLogin.emit({
+  doLogin() {
+    this.login.emit({
       loginRequest: this.loginRequest,
       rememberMeParam: this.rememberMeParam
     });

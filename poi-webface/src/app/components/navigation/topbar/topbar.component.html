@@ -1,6 +1,6 @@
 <div class="top">
   <div class="top-left flex-center-r p-20">
-    <button class="top-login-btn m-l-10" *ngIf="!user" (click)="loginClick()">{{'NAV.SIGN_IN_BTN' | translate}}</button>
+    <button class="top-login-btn m-l-10" *ngIf="!user" (click)="emitLoginClick()">{{'NAV.SIGN_IN_BTN' | translate}}</button>
     <a class="top-user m-l-10" *ngIf="user" (click)="toggleUserPopup()">
       <img [src]="user.avatarIcon ? user.avatarIcon : '../../../../assets/img/def.png'"
            >
@@ -9,7 +9,7 @@
         <a>My Profile</a>
         <a>Settings</a>
         <a (click)="openAvatarFileDialog()">Set Avatar</a>
-        <a (click)="logoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
+        <a (click)="emitLogoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
         <input id="av" type="file" style="display: none" accept="image/*">
       </div>
     </a>
@@ -18,7 +18,7 @@
       <div class="top-lang-popup" *ngIf="langPopupVisible">
         <a *ngFor="let locale of locales"
            [class]="locale == currentLanguage() ? 'flex-center-r active' : 'flex-center-r'"
-           (click)="changeLocale(locale, $event)">
+           (click)="emitLocaleChange(locale, $event)">
           <img [src]="'../../../../assets/img/lang/' + locale + '.svg'" class="m-r-20">
           {{languages[locale]}}
         </a>

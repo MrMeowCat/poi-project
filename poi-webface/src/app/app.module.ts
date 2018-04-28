@@ -19,7 +19,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TopbarComponent } from './components/navigation/topbar/topbar.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'map', pathMatch: 'full' },
   { path: 'map', component: MapComponent },
 ];
 

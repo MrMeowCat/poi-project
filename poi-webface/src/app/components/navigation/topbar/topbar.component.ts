@@ -21,10 +21,10 @@ export class TopbarComponent implements OnInit {
   file: File;
 
   @Input() user: User;
-  @Output() onLoginClick = new EventEmitter();
-  @Output() onLogoutClick = new EventEmitter();
-  @Output() onChangeLocale = new EventEmitter<string>();
-  @Output() onAvatarChanged = new EventEmitter<any>();
+  @Output() loginClick = new EventEmitter();
+  @Output() logoutClick = new EventEmitter();
+  @Output() localeChange = new EventEmitter<string>();
+  @Output() avatarChange = new EventEmitter<any>();
 
   constructor(private translateService: TranslateService,
               private userService: UserService) { }
@@ -32,16 +32,16 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  loginClick() {
-    this.onLoginClick.emit();
+  emitLoginClick() {
+    this.loginClick.emit();
   }
 
-  logoutClick() {
-    this.onLogoutClick.emit();
+  emitLogoutClick() {
+    this.logoutClick.emit();
   }
 
-  changeLocale(locale: string, $event) {
-    this.onChangeLocale.emit(locale);
+  emitLocaleChange(locale: string, $event) {
+    this.localeChange.emit(locale);
   }
 
   currentLanguage() : string {
@@ -67,7 +67,7 @@ export class TopbarComponent implements OnInit {
       const file = e.target.files[0];
       this.userService.setAvatar(file).subscribe(res => {
         console.log(res);
-        this.onAvatarChanged.emit(res);
+        this.avatarChange.emit(res);
       }, err => {
         console.log(err);
       });
