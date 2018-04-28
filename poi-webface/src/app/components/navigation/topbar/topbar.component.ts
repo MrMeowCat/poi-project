@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from "../../../models/user";
 import { Constants } from "../../../util/constants";
 import { TranslateService } from "@ngx-translate/core";
+import { HttpService } from "../../../services/http.service";
+import { UserService } from "../../../services/user.service";
+
+declare var $:any;
 
 @Component({
   selector: 'poi-topbar',
@@ -14,13 +18,16 @@ export class TopbarComponent implements OnInit {
   langPopupVisible = false;
   locales = Constants.LOCALES;
   languages = Constants.LANGUAGES;
+  file: File;
 
   @Input() user: User;
   @Output() onLoginClick = new EventEmitter();
   @Output() onLogoutClick = new EventEmitter();
   @Output() onChangeLocale = new EventEmitter<string>();
+  @Output() onAvatarChanged = new EventEmitter<any>();
 
-  constructor(private tranlateService: TranslateService) { }
+  constructor(private translateService: TranslateService,
+              private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -38,7 +45,7 @@ export class TopbarComponent implements OnInit {
   }
 
   currentLanguage() : string {
-    return this.tranlateService.currentLang;
+    return this.translateService.currentLang;
   }
 
   toggleUserPopup() {
@@ -52,5 +59,19 @@ export class TopbarComponent implements OnInit {
   hidePopups($event) {
     this.userPopupVisible = false;
     this.langPopupVisible = false;
+  }
+
+  openAvatarFileDialog() {
+    const avatar = $('#av');
+    avatar.on('change', e => {
+      const file = e.target.files[0];
+      this.userService.setAvatar(file).subscribe(res => {
+        console.log(res);
+        this.onAvatarChanged.emit(res);
+      }, err => {
+        console.log(err);
+      });
+    });
+    avatar.click();
   }
 }

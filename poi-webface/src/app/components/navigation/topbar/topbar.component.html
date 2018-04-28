@@ -2,12 +2,15 @@
   <div class="top-left flex-center-r p-20">
     <button class="top-login-btn m-l-10" *ngIf="!user" (click)="loginClick()">{{'NAV.SIGN_IN_BTN' | translate}}</button>
     <a class="top-user m-l-10" *ngIf="user" (click)="toggleUserPopup()">
-      <img src="../../../../assets/img/def.png">
+      <img [src]="user.avatarIcon ? user.avatarIcon : '../../../../assets/img/def.png'"
+           >
       <div class="top-user-popup" *ngIf="userPopupVisible">
         <h3>{{user.username}}</h3>
         <a>My Profile</a>
         <a>Settings</a>
+        <a (click)="openAvatarFileDialog()">Set Avatar</a>
         <a (click)="logoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
+        <input id="av" type="file" style="display: none" accept="image/*">
       </div>
     </a>
     <a class="top-lang m-l-30" (click)="toggleLangPopup()">

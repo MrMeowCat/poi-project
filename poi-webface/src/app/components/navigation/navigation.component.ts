@@ -77,4 +77,14 @@ export class NavigationComponent implements OnInit {
       this.translate.use(language);
     }
   }
+
+  setAvatar(avatar) {
+    if (!avatar) {
+      return;
+    }
+
+    this.user.avatarFull = avatar.avatarFull;
+    this.user.avatarThumbnail = avatar.avatarThumbnail;
+    this.user.avatarIcon = avatar.avatarIcon;
+  }
 }

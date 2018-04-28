@@ -1,4 +1,4 @@
-package org.mrmeowcat.poibackend.domain.service.impl
+package org.mrmeowcat.poibackend.domain.service
 
 import org.mrmeowcat.poibackend.domain.service.SignUpService
 import org.mrmeowcat.poibackend.domain.service.UserService
@@ -8,4 +8,5 @@ import org.springframework.stereotype.Component
 @Component
 class Services @Autowired
 constructor(val users: UserService,
-            val signUpService: SignUpService)
+            val signUpService: SignUpService,
+            val sftpService: FileTransferService)

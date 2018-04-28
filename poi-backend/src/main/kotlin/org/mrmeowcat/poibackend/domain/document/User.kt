@@ -19,4 +19,10 @@ class User : AbstractDocument() {
     var enabled = true
 
     var language: String = "en"
+
+    var avatarFull: String? = null
+
+    var avatarThumbnail: String? = null
+
+    var avatarIcon: String? = null
 }

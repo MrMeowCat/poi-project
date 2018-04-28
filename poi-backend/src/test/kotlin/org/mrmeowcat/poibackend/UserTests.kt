@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.mrmeowcat.poibackend.application.dto.UserDto
 import org.mrmeowcat.poibackend.domain.document.User
 import org.mrmeowcat.poibackend.domain.service.UserService
-import org.mrmeowcat.poibackend.domain.service.impl.Services
+import org.mrmeowcat.poibackend.domain.service.Services
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner

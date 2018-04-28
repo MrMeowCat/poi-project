@@ -3,6 +3,7 @@ import { HttpService } from "./http.service";
 import { Observable } from "rxjs/Observable";
 import { Urls } from "../util/urls";
 import { AuthService } from "./auth.service";
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class UserService {
@@ -30,5 +31,16 @@ export class UserService {
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
     return this.http.put(Urls.SET_LOCALE_URL, null, options);
+  }
+
+  setAvatar(file): Observable<any> {
+    const headers = new HttpHeaders();
+    const options = this.http.getDefaultOptions();
+    options.withCredentials = true;
+    options.headers = headers;
+    this.authService.setCsrfHeader(options);
+    const fd = new FormData();
+    fd.append('file', file);
+    return this.http.put(Urls.SET_AVATAR_URL, fd, options);
   }
 }

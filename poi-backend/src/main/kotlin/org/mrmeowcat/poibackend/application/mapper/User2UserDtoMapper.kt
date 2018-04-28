@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component
 internal class User2UserDtoMapper : Mapper<User, UserDto> {
 
     override fun map(e: User): UserDto {
-        val id = e.id
-        val username = e.username
+        val username = e.username!!
         val roles = e.roles
         val enabled = e.enabled
         val language = e.language
-        val user = UserDto(username, roles, enabled, language)
+        val avatarFull = e.avatarFull
+        val avatarThumbnail = e.avatarThumbnail
+        val avatarIcon = e.avatarIcon
+
+        val user = UserDto(username, roles, enabled, language, avatarFull, avatarThumbnail, avatarIcon)
         user.id = e.id
         return user
     }

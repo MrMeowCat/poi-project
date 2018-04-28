@@ -1,7 +1,9 @@
 package org.mrmeowcat.poibackend.application.controller.v1
 
+import org.apache.commons.lang3.RandomStringUtils
 import org.mrmeowcat.poibackend.application.dto.UserDto
 import org.mrmeowcat.poibackend.application.dto.request.SignUpRequest
+import org.mrmeowcat.poibackend.config.SftpConfig
 import org.mrmeowcat.poibackend.domain.document.User
 import org.mrmeowcat.poibackend.domain.exception.DocumentNotFoundException
 import org.slf4j.LoggerFactory
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -57,6 +60,22 @@ class UserController : AbstractController() {
         }
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).build()
+    }
+
+    @PutMapping("avatar")
+    fun setAvatar(@RequestParam("file") part: MultipartFile): ResponseEntity<*> {
+        val filename = "${RandomStringUtils.randomAlphabetic(4)}.png"
+        services.sftpService.upload(part.inputStream, filename)
+        val user = getCurrentUser()!!
+        user.avatarFull = "${SftpConfig.PUBLIC_URL}/$filename"
+        user.avatarThumbnail = "${SftpConfig.PUBLIC_URL}/$filename"
+        user.avatarIcon = "${SftpConfig.PUBLIC_URL}/$filename"
+        services.users.save(user)
+        val response = mapOf(
+                Pair("avatarFull", user.avatarFull),
+                Pair("avatarThumbnail", user.avatarThumbnail),
+                Pair("avatarIcon", user.avatarIcon))
+        return ResponseEntity.ok(response)
     }
 
     private fun getCurrentUser() : User? {

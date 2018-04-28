@@ -4,4 +4,7 @@ export class User {
   roles: Array<string>;
   enabled: boolean;
   language: string;
+  avatarFull: string;
+  avatarThumbnail: string;
+  avatarIcon: string;
 }

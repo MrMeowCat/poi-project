@@ -2,7 +2,7 @@ package org.mrmeowcat.poibackend.application.controller.v1
 
 import org.mrmeowcat.poibackend.application.mapper.BeanMapper
 import org.mrmeowcat.poibackend.domain.repository.Repositories
-import org.mrmeowcat.poibackend.domain.service.impl.Services
+import org.mrmeowcat.poibackend.domain.service.Services
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
