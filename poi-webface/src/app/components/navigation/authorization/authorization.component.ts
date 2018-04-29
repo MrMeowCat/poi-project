@@ -1,7 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Errors} from "../../../util/errors";
-import {SignUpService} from "../../../services/sign-up.service";
-import {AuthService} from "../../../services/auth.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Errors } from "../../../utils/errors";
+import { SignUpService } from "../../../services/sign-up.service";
+import { AuthService } from "../../../services/auth.service";
 
 @Component({
   selector: 'poi-authorization',

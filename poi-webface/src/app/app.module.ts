@@ -12,11 +12,12 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { SignupComponent } from './components/navigation/authorization/signup/signup.component';
 import { AuthorizationComponent } from './components/navigation/authorization/authorization.component';
 import { ServicesModule } from "./services/services.module";
-import { ModelsModule } from "./models/models.module";
 import { HomeComponent } from './components/home/home.component';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TopbarComponent } from './components/navigation/topbar/topbar.component';
+import { StoreModule } from "@ngrx/store";
+import { reducerMap } from "./store/reducers";
 
 const routes: Routes = [
   { path: '', redirectTo: 'map', pathMatch: 'full' },
@@ -52,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     ServicesModule,
-    ModelsModule
+    StoreModule.forRoot(reducerMap)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@
     <a class="top-user m-l-10" *ngIf="user" (click)="toggleUserPopup()">
       <img [src]="user.avatarIcon ? user.avatarIcon : '../../../../assets/img/def.png'"
            >
-      <div class="top-user-popup" *ngIf="userPopupVisible">
+      <div class="top-popup top-user-popup" *ngIf="userPopupVisible">
         <h3>{{user.username}}</h3>
         <a>My Profile</a>
         <a>Settings</a>
@@ -15,7 +15,7 @@
     </a>
     <a class="top-lang m-l-30" (click)="toggleLangPopup()">
       <img [src]="'../../../../assets/img/lang/' + currentLanguage() + '.svg'">
-      <div class="top-lang-popup" *ngIf="langPopupVisible">
+      <div class="top-popup top-lang-popup" *ngIf="langPopupVisible">
         <a *ngFor="let locale of locales"
            [class]="locale == currentLanguage() ? 'flex-center-r active' : 'flex-center-r'"
            (click)="emitLocaleChange(locale, $event)">
@@ -24,8 +24,19 @@
         </a>
       </div>
     </a>
+    <a class="top-theme m-l-30" (click)="toggleThemePopup()">
+      <img src="../../../../assets/img/palette.svg">
+      <div class="top-popup top-theme-popup" *ngIf="themePopupVisible">
+        <a *ngFor="let theme of themeArray"
+           [class]="theme.name == selectedTheme.name ? 'active' : ''"
+           (click)="changeTheme(theme)">
+          {{theme.name}}
+        </a>
+      </div>
+    </a>
   </div>
 
 
 </div>
-<div class="overflow" *ngIf="userPopupVisible || langPopupVisible" (click)="hidePopups($event)"></div>
+<div class="overflow" *ngIf="userPopupVisible || langPopupVisible || themePopupVisible"
+     (click)="hidePopups($event)"></div>

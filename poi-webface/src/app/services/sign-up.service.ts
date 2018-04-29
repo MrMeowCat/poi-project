@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from "./http.service";
 import { SignUpRequest } from "../models/sign-up-request";
-import { Urls } from "../util/urls";
+import { Urls } from "../utils/urls";
 
 @Injectable()
 export class SignUpService {

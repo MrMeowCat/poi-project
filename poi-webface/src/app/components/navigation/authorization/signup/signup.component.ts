@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SignUpRequest} from "../../../../models/sign-up-request";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SignUpRequest } from "../../../../models/sign-up-request";
 
 @Component({
   selector: 'poi-signup',
@@ -8,13 +8,15 @@ import {SignUpRequest} from "../../../../models/sign-up-request";
 })
 export class SignupComponent implements OnInit {
 
+  signUpRequest = new SignUpRequest();
+
   @Input() usernameValid;
   @Input() emailValid;
   @Input() passwordValid;
   @Input() confirmValid;
   @Output() signUp = new EventEmitter<SignUpRequest>();
 
-  constructor(public signUpRequest: SignUpRequest) {
+  constructor() {
   }
 
   ngOnInit() {

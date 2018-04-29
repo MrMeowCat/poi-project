@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LoginRequest} from "../../../../models/login-request";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LoginRequest } from "../../../../models/login-request";
 
 declare var $: any;
 
@@ -10,6 +10,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
+  loginRequest = new LoginRequest();
+
   @Input() loginSuccess;
   @Output() login = new EventEmitter<any>();
 
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
     rememberMe: false
   };
 
-  constructor(public loginRequest: LoginRequest) {
+  constructor() {
   }
 
   ngOnInit() {

@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from "../../../models/user";
-import { Constants } from "../../../util/constants";
+import { Constants } from "../../../utils/constants";
 import { TranslateService } from "@ngx-translate/core";
-import { HttpService } from "../../../services/http.service";
 import { UserService } from "../../../services/user.service";
+import { Theme, ThemeArray } from "../../../models/themes";
+import { Store } from "@ngrx/store";
+import { ThemeChangeAction } from "../../../store/actions";
+import { State } from "../../../store/states";
 
 declare var $:any;
 
@@ -14,8 +17,11 @@ declare var $:any;
 })
 export class TopbarComponent implements OnInit {
 
+  themeArray = ThemeArray;
+  selectedTheme: Theme;
   userPopupVisible = false;
   langPopupVisible = false;
+  themePopupVisible = false;
   locales = Constants.LOCALES;
   languages = Constants.LANGUAGES;
   file: File;
@@ -27,7 +33,12 @@ export class TopbarComponent implements OnInit {
   @Output() avatarChange = new EventEmitter<any>();
 
   constructor(private translateService: TranslateService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private store: Store<State>) {
+    this.store.select(state => state.theme).subscribe(theme => {
+      this.selectedTheme = theme;
+    });
+  }
 
   ngOnInit() {
   }
@@ -56,9 +67,14 @@ export class TopbarComponent implements OnInit {
     this.langPopupVisible = !this.langPopupVisible;
   }
 
+  toggleThemePopup() {
+    this.themePopupVisible = !this.themePopupVisible;
+  }
+
   hidePopups($event) {
     this.userPopupVisible = false;
     this.langPopupVisible = false;
+    this.themePopupVisible = false;
   }
 
   openAvatarFileDialog() {
@@ -73,5 +89,9 @@ export class TopbarComponent implements OnInit {
       });
     });
     avatar.click();
+  }
+
+  changeTheme(theme: Theme) {
+    this.store.dispatch(new ThemeChangeAction(theme));
   }
 }

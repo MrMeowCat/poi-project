@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { User } from "../../models/user";
 import { AuthService } from "../../services/auth.service";
-import { Constants } from "../../util/constants";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
+import { Store } from "@ngrx/store";
+import { Themes } from "../../models/themes";
+import { ThemeChangeAction } from "../../store/actions";
+import { State } from "../../store/states";
 
 declare const $: any;
 
@@ -21,13 +24,15 @@ export class NavigationComponent implements OnInit {
   constructor(private userService: UserService,
               private authService: AuthService,
               private translate: TranslateService,
-              private cookies: CookieService) {
+              private cookies: CookieService,
+              private store: Store<State>) {
   }
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
       this.setLanguage(user.language);
+      this.store.dispatch(new ThemeChangeAction(Themes.Standard));
     }, err => {
       console.log("Pre-auth failed");
     });

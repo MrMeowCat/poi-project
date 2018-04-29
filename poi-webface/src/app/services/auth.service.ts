@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService, RequestOptions } from "./http.service";
 import { LoginRequest } from "../models/login-request";
-import { Urls } from "../util/urls";
+import { Urls } from "../utils/urls";
 import { CookieService } from "ngx-cookie-service";
 
 @Injectable()

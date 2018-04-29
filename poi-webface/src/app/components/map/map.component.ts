@@ -1,6 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { } from '@types/googlemaps';
-import { Styles } from "./styles";
+import { Theme } from '../../models/themes';
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
+import { State } from "../../store/states";
 
 @Component({
   selector: 'poi-map',
@@ -9,21 +12,18 @@ import { Styles } from "./styles";
 })
 export class MapComponent implements OnInit {
 
-  constructor() { }
-
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
 
+  selectedTheme$: Observable<Theme>;
+
+  constructor(private store: Store<State>) {
+    this.selectedTheme$ = this.store.select(state => state.theme);
+  }
+
   ngOnInit() {
     let coordinates;
-
-    // navigator.geolocation.getCurrentPosition(location => {
-    //   coordinates = location.coords;
-    //   this.initMap(coordinates.latitude, coordinates.longitude);
-    // }, err => {
-    //
-    // });
-    this.initMap(50.010637, 15.338939);
+    this.initMap(50, 15);
   }
 
   initMap(latitude: number, longitude: number) {
@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
       center: new google.maps.LatLng(latitude, longitude),
       zoom: 5,
       minZoom: 4,
-      // mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       streetViewControl: false,
       fullscreenControl: false,
@@ -47,7 +47,9 @@ export class MapComponent implements OnInit {
       console.log(this.map.getZoom());
     });
 
-    this.map.mapTypes.set('silver', Styles.styles);
-    this.map.setMapTypeId('silver');
+    this.selectedTheme$.subscribe(theme => {
+      this.map.mapTypes.set(theme.name, theme.theme);
+      this.map.setMapTypeId(theme.name);
+    });
   }
 }
