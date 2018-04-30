@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 
 
-
+/**
+ * Mongodb configuration.
+ */
 @Configuration
 @EnableMongoAuditing
 @EnableMongoRepositories(basePackages = ["org.mrmeowcat.poibackend.domain"])

@@ -2,6 +2,9 @@ package org.mrmeowcat.poibackend.domain.service
 
 import org.mrmeowcat.poibackend.domain.document.User
 
+/**
+ * User CRUD service.
+ */
 interface UserService : DBService<User> {
 
     fun findByUsername(username: String) : User

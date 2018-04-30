@@ -2,6 +2,9 @@ package org.mrmeowcat.poibackend.config
 
 import java.util.*
 
+/**
+ * Application configuration.
+ */
 object AppConfig {
 
     private val bundle = ResourceBundle.getBundle("app_config")

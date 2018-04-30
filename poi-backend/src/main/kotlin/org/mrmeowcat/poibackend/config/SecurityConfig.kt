@@ -22,9 +22,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.util.*
 
 
+/**
+ * Security configuration.
+ */
 @Configuration
 @EnableWebSecurity
-//@EnableOAuth2Sso
 class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     companion object {

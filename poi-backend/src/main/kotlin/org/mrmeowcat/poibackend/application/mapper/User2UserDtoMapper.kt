@@ -2,10 +2,15 @@ package org.mrmeowcat.poibackend.application.mapper
 
 import org.mrmeowcat.poibackend.application.dto.UserDto
 import org.mrmeowcat.poibackend.domain.document.User
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+/**
+ * Mapper for user documents.
+ */
 @Component
-internal class User2UserDtoMapper : Mapper<User, UserDto> {
+class User2UserDtoMapper @Autowired constructor(val mapper: BeanMapper)
+    : Mapper<User, UserDto> {
 
     override fun map(e: User): UserDto {
         val username = e.username!!

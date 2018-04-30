@@ -3,6 +3,9 @@ package org.mrmeowcat.poibackend.domain.document
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
+/**
+ * User document.
+ */
 @Document(collection = "users")
 class User : AbstractDocument() {
 
@@ -25,4 +28,7 @@ class User : AbstractDocument() {
     var avatarThumbnail: String? = null
 
     var avatarIcon: String? = null
+
+    var themeId: String? = null
+
 }

@@ -4,7 +4,10 @@ import org.mrmeowcat.poibackend.domain.document.User
 import org.springframework.data.mongodb.repository.MongoRepository
 import java.util.*
 
-interface UserRepository : MongoRepository<User, String> {
+/**
+ * Mongo user CRUD repository.
+ */
+interface MongoUserRepository : MongoRepository<User, String> {
 
     fun findByUsername(username: String): Optional<User>
 

@@ -10,6 +10,9 @@ import java.io.FileInputStream
 import java.io.InputStream
 import java.util.*
 
+/**
+ * SFTP download/upload implementation.
+ */
 @Service
 class SftpService : FileTransferService {
 

@@ -9,6 +9,9 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.starProjectedType
 
+/**
+ * Generic bean to dto mapper implementation.
+ */
 @Component
 class BeanMapper : ApplicationContextAware {
 

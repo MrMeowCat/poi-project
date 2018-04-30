@@ -2,6 +2,9 @@ package org.mrmeowcat.poibackend.util
 
 import org.apache.commons.lang3.RandomStringUtils
 
+/**
+ * Utility methods for strings.
+ */
 object StringUtils {
 
     fun randomAlphanumeric(length: Int) : String {

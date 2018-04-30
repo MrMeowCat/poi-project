@@ -4,6 +4,9 @@ import org.mrmeowcat.poibackend.domain.repository.Repositories
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Wrapper for DB repositories.
+ */
 @Service
 abstract class AbstractDBService {
 

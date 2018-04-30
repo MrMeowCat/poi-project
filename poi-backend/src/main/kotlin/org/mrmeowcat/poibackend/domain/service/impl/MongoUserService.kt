@@ -8,8 +8,11 @@ import org.mrmeowcat.poibackend.domain.service.UserService
 import org.springframework.data.domain.Example
 import org.springframework.stereotype.Service
 
+/**
+ * Mongo user service implementation.
+ */
 @Service
-class DefaultUserService : AbstractDBService(), UserService {
+class MongoUserService : AbstractDBService(), UserService {
 
     override fun findById(id: String): User {
         return repositories.users.findById(id).orElseThrow {

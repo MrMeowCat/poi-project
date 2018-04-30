@@ -1,5 +1,7 @@
 package org.mrmeowcat.poibackend
 
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mrmeowcat.poibackend.application.dto.UserDto
@@ -16,6 +18,9 @@ class MapperTests {
     @Autowired
     lateinit var mapper: BeanMapper
 
+    @Autowired
+    lateinit var objectMapper: ObjectMapper
+
     @Test
     fun test_convertUser2UserDto() {
         val user = User()
@@ -26,5 +31,13 @@ class MapperTests {
 
         val userDto: UserDto = mapper.map(user, UserDto::class)
         println(userDto)
+    }
+
+    @Test
+    fun minifyJson() {
+        var json = "{\n" +
+                "\"Feature\"  \"Style\"\n" +
+                "}"
+        println(objectMapper.readValue(json, JsonNode::class.java).toString())
     }
 }

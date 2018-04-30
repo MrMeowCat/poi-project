@@ -2,6 +2,9 @@ package org.mrmeowcat.poibackend.domain.service
 
 import org.mrmeowcat.poibackend.domain.document.AbstractDocument
 
+/**
+ * Basic CRUD service.
+ */
 interface DBService<T : AbstractDocument> {
 
     fun findById(id: String) : T

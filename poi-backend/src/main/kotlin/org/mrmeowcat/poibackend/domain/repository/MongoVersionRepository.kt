@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.mongodb.BasicDBObject
 import org.bson.Document
 import org.mrmeowcat.poibackend.domain.document.AbstractDocument
+import org.mrmeowcat.poibackend.domain.document.Theme
 import org.mrmeowcat.poibackend.domain.document.User
 import org.mrmeowcat.poibackend.domain.meta.NoVersioning
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,8 +17,11 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
+/**
+ * Generic versioning repository for mongo documents.
+ */
 @Repository
-class VersionRepository {
+class MongoVersionRepository {
 
     @Autowired
     private lateinit var objectMapper: ObjectMapper
@@ -27,7 +31,8 @@ class VersionRepository {
 
     companion object {
         @JvmField val VERSION_MAP: Map<KClass<out AbstractDocument>, String> = mapOf(
-                Pair(User::class, "users_version")
+                Pair(User::class, "users_version"),
+                Pair(Theme::class, "themes_version")
         )
     }
 
