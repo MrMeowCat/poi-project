@@ -53,7 +53,7 @@ class ThemeTests {
 
 
 //        repositories.themes.save(theme)
-//        repositories.themes.save(theme1)
+        repositories.themes.save(theme1)
     }
 
     @After
@@ -86,6 +86,22 @@ class ThemeTests {
         })
 
         println("end getThemeByUserId")
+    }
+
+    @Test
+    fun existsByUserId() {
+        val user = repositories.users.findAll()[0]!!
+        val user2 = repositories.users.findAll()[1]!!
+        val themes = repositories.themes.findAll()
+
+        println(repositories.themes.existsByIdAndUserId(themes[0].id!!, user.id!!))
+        println(repositories.themes.existsByIdAndUserId(themes[0].id!!, user2.id!!))
+        println(repositories.themes.existsByIdAndUserId(themes[0].id!!, "asdasdasd"))
+
+        println(repositories.themes.findByIdAndUserId(themes[0].id!!, user.id!!))
+        println(repositories.themes.findByIdAndUserId(themes[0].id!!, user2.id!!))
+        println(repositories.themes.findByIdAndUserId(null, user2.id!!))
+
     }
 
 }

@@ -3,7 +3,7 @@ import { User } from "../../../models/user";
 import { Constants } from "../../../utils/constants";
 import { TranslateService } from "@ngx-translate/core";
 import { UserService } from "../../../services/user.service";
-import { Theme, ThemeArray } from "../../../models/themes";
+import { StyledTheme, StyledThemeArray } from "../../../models/styled-themes";
 import { Store } from "@ngrx/store";
 import { ThemeChangeAction } from "../../../store/actions";
 import { State } from "../../../store/states";
@@ -17,8 +17,8 @@ declare var $:any;
 })
 export class TopbarComponent implements OnInit {
 
-  themeArray = ThemeArray;
-  selectedTheme: Theme;
+  themeArray = StyledThemeArray;
+  selectedTheme: StyledTheme;
   userPopupVisible = false;
   langPopupVisible = false;
   themePopupVisible = false;
@@ -91,7 +91,7 @@ export class TopbarComponent implements OnInit {
     avatar.click();
   }
 
-  changeTheme(theme: Theme) {
+  changeTheme(theme: StyledTheme) {
     this.store.dispatch(new ThemeChangeAction(theme));
   }
 }

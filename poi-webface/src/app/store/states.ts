@@ -1,5 +1,5 @@
-import { Theme, Themes } from "../models/themes";
+import { StyledTheme, StyledThemes } from "../models/styled-themes";
 
 export interface State {
-  theme: Theme;
+  theme: StyledTheme;
 }

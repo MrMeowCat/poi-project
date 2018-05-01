@@ -5,6 +5,7 @@ import { AuthService } from "./auth.service";
 import { SignUpService } from "./sign-up.service";
 import { UserService } from "./user.service";
 import { CookieService } from "ngx-cookie-service";
+import { ThemeService } from "./theme.service";
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { CookieService } from "ngx-cookie-service";
     AuthService,
     SignUpService,
     UserService,
+    ThemeService,
   ]
 })
 export class ServicesModule {

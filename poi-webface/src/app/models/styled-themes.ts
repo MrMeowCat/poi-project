@@ -1,13 +1,13 @@
-export interface Theme {
+export interface StyledTheme {
   name: string;
   theme: google.maps.StyledMapType;
 }
 
-export const Standard: Theme = {
+export const Standard: StyledTheme = {
   name: 'Standard',
   theme: new google.maps.StyledMapType([])
 };
-export const Silver: Theme = {
+export const Silver: StyledTheme = {
   name: 'Silver',
   theme: new google.maps.StyledMapType([
     {
@@ -170,7 +170,7 @@ export const Silver: Theme = {
     }
   ])
 };
-export const Retro: Theme = {
+export const Retro: StyledTheme = {
   name: 'Retro',
   theme: new google.maps.StyledMapType([
     {
@@ -388,7 +388,7 @@ export const Retro: Theme = {
     }
   ])
 };
-export const Dark: Theme = {
+export const Dark: StyledTheme = {
   name: 'Dark',
   theme: new google.maps.StyledMapType([
     {
@@ -577,7 +577,7 @@ export const Dark: Theme = {
     }
   ])
 };
-export const Night: Theme = {
+export const Night: StyledTheme = {
   name: 'Night',
   theme: new google.maps.StyledMapType([
     {
@@ -741,7 +741,7 @@ export const Night: Theme = {
     }
   ])
 };
-export const Aubergine: Theme = {
+export const Aubergine: StyledTheme = {
   name: 'Aubergine',
   theme: new google.maps.StyledMapType([
     {
@@ -978,7 +978,7 @@ export const Aubergine: Theme = {
   ])
 };
 
-export const Themes = {
+export const StyledThemes = {
   Standard,
   Silver,
   Retro,
@@ -987,7 +987,7 @@ export const Themes = {
   Aubergine
 };
 
-export const ThemeArray = [
+export const StyledThemeArray = [
   Standard,
   Silver,
   Retro,

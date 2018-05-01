@@ -12,5 +12,9 @@ interface MongoThemeRepository : MongoRepository<Theme, String> {
 
     fun findByUserId(id: String) : List<Theme>
 
+    fun findByIdAndUserId(id: String?, userId: String?) : Theme?
+
     fun existsByName(name: String) : Boolean
+
+    fun existsByIdAndUserId(id: String?, userId: String?) : Boolean
 }

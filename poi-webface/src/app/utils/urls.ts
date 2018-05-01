@@ -1,13 +1,16 @@
 export class Urls {
 
-  static BASE_PATH = "http://localhost:8080/api/v1";
+  static readonly BASE_PATH = "http://localhost:8080/api/v1";
 
-  static LOGIN_URL = Urls.BASE_PATH + "/login";
-  static SIGN_UP_URL = Urls.BASE_PATH + "/signUp";
-  static LOGOUT_URL = Urls.BASE_PATH + "/logout";
+  static readonly LOGIN_URL = Urls.BASE_PATH + "/login";
+  static readonly SIGN_UP_URL = Urls.BASE_PATH + "/signUp";
+  static readonly LOGOUT_URL = Urls.BASE_PATH + "/logout";
 
-  static USERS_URL = Urls.BASE_PATH + "/users";
-  static CURRENT_USER_URL = Urls.BASE_PATH + "/currentUser";
-  static SET_LOCALE_URL = Urls.BASE_PATH + "/setLocale";
-  static SET_AVATAR_URL = Urls.BASE_PATH + "/avatar";
+  static readonly USERS_URL = Urls.BASE_PATH + "/users";
+  static readonly CURRENT_USER_URL = Urls.BASE_PATH + "/currentUser";
+  static readonly SET_LOCALE_URL = Urls.BASE_PATH + "/setLocale";
+  static readonly SET_AVATAR_URL = Urls.BASE_PATH + "/avatar";
+
+  static readonly CURRENT_THEME_URL = Urls.BASE_PATH + "/currentTheme";
+  static readonly THEMES_URL = Urls.BASE_PATH + "/themes";
 }

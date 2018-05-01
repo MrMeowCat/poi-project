@@ -34,8 +34,16 @@ class MongoThemeService : AbstractDBService(), ThemeService {
         return repositories.themes.findByUserId(id)
     }
 
+    override fun findByIdAndUserId(id: String?, userId: String?): Theme? {
+        return repositories.themes.findByIdAndUserId(id, userId)
+    }
+
     override fun existsByName(name: String): Boolean {
         return repositories.themes.existsByName(name)
+    }
+
+    override fun existsByIdAndUserId(id: String?, userId: String?): Boolean {
+        return repositories.themes.existsByIdAndUserId(id, userId)
     }
 
     override fun findById(id: String): Theme {

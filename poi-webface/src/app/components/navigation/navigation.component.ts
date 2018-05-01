@@ -5,9 +5,10 @@ import { AuthService } from "../../services/auth.service";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Store } from "@ngrx/store";
-import { Themes } from "../../models/themes";
+import { StyledThemes } from "../../models/styled-themes";
 import { ThemeChangeAction } from "../../store/actions";
 import { State } from "../../store/states";
+import { ThemeService } from "../../services/theme.service";
 
 declare const $: any;
 
@@ -22,6 +23,7 @@ export class NavigationComponent implements OnInit {
   user: User;
 
   constructor(private userService: UserService,
+              private themeService: ThemeService,
               private authService: AuthService,
               private translate: TranslateService,
               private cookies: CookieService,
@@ -32,9 +34,17 @@ export class NavigationComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
       this.setLanguage(user.language);
-      this.store.dispatch(new ThemeChangeAction(Themes.Standard));
     }, err => {
       console.log("Pre-auth failed");
+    });
+
+    this.themeService.getCurrentTheme().subscribe(theme => {
+      console.log(theme);
+      const styledTheme = this.themeService.convertTheme(theme);
+      console.log(styledTheme);
+      this.store.dispatch(new ThemeChangeAction(styledTheme));
+    }, err => {
+      console.log("Theme pre-load failed");
     });
   }
 
@@ -49,7 +59,14 @@ export class NavigationComponent implements OnInit {
       this.setLanguage(user.language);
     }, err => {
       console.log(err);
-    })
+    });
+
+    this.themeService.getCurrentTheme().subscribe(theme => {
+      console.log(theme);
+      this.store.dispatch(new ThemeChangeAction(StyledThemes.Standard));
+    }, err => {
+      console.log(err);
+    });
   }
 
   onLogout($event) {

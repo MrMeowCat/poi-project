@@ -5,11 +5,14 @@ import org.mrmeowcat.poibackend.domain.document.Theme
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -39,6 +42,15 @@ class ThemeController : AbstractController() {
         return ResponseEntity.ok(themeDtos)
     }
 
+    @GetMapping("themes/{id}")
+    fun getTheme(@PathVariable("id") themeId: String?): ResponseEntity<ThemeDto> {
+        val user = getCurrentUser()!!
+        val theme = services.themes.findByIdAndUserId(themeId, user.id)
+        theme ?: return ResponseEntity.notFound().build()
+        val themeDto = mapper.map(theme, ThemeDto::class)
+        return ResponseEntity.ok(themeDto)
+    }
+
     @PostMapping("themes")
     fun createTheme(@RequestBody themeDto: ThemeDto?): ResponseEntity<ThemeDto> {
         themeDto ?: return ResponseEntity.badRequest().build()
@@ -48,26 +60,35 @@ class ThemeController : AbstractController() {
         theme.style = themeDto.style
         theme.userId = user.id
         services.themes.save(theme)
-        services.users.save(user)
         themeDto.id = theme.id
         return ResponseEntity.status(HttpStatus.CREATED).body(themeDto)
     }
 
     @PutMapping("themes")
-    fun updateTheme(@RequestBody themeDto: ThemeDto?): ResponseEntity<Any> {
+    fun updateTheme(@RequestBody themeDto: ThemeDto?,
+                    @RequestParam("change", required = false) change: Boolean = false): ResponseEntity<Any> {
         themeDto ?: return ResponseEntity.badRequest().build()
         val theme = services.themes.findById(themeDto.id!!)
         theme.name = themeDto.name
         theme.style = themeDto.style
         services.themes.save(theme)
 
-        /* save current user theme if matches */
-        val user = getCurrentUser()!!
-        if (theme.userId == user.id) {
+        if (change) {
+            val user = getCurrentUser()!!
             user.themeId = theme.id
             services.users.save(user)
         }
 
         return ResponseEntity.ok().build()
+    }
+
+    @DeleteMapping("themes/{id}")
+    fun deleteTheme(@PathVariable("id") themeId: String?): ResponseEntity<Any> {
+        val user = getCurrentUser()!!
+        if (!services.themes.existsByIdAndUserId(themeId, user.id)) {
+            return ResponseEntity.notFound().build()
+        }
+        //delete
+        return ResponseEntity.noContent().build()
     }
 }

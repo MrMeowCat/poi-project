@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { } from '@types/googlemaps';
-import { Theme } from '../../models/themes';
+import { StyledTheme } from '../../models/styled-themes';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { State } from "../../store/states";
@@ -15,7 +15,7 @@ export class MapComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
 
-  selectedTheme$: Observable<Theme>;
+  selectedTheme$: Observable<StyledTheme>;
 
   constructor(private store: Store<State>) {
     this.selectedTheme$ = this.store.select(state => state.theme);
