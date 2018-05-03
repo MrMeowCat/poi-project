@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SignUpRequest } from "../../../../models/sign-up-request";
+import { SignUpRequest } from "../../../shared/models/sign-up-request";
 
 @Component({
   selector: 'poi-signup',

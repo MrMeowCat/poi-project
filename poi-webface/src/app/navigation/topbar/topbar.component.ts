@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from "../../../models/user";
-import { Constants } from "../../../utils/constants";
 import { TranslateService } from "@ngx-translate/core";
-import { UserService } from "../../../services/user.service";
-import { StyledTheme, StyledThemeArray } from "../../../models/styled-themes";
 import { Store } from "@ngrx/store";
-import { ThemeChangeAction } from "../../../store/actions";
-import { State } from "../../../store/states";
+import { ThemeChangeAction } from "../../store/actions";
+import { State } from "../../store/states";
+import { StyledTheme, StyledThemeArray } from "../../shared/models/styled-themes";
+import { Constants } from "../../shared/utils/constants";
+import { User } from "../../shared/models/user";
+import { UserService } from "../../shared/services/user.service";
 
 declare var $:any;
 

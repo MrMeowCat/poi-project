@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LoginRequest } from "../../../../models/login-request";
+import { LoginRequest } from "../../../shared/models/login-request";
 
 declare var $: any;
 

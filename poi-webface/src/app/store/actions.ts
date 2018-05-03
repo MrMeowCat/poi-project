@@ -1,5 +1,5 @@
-import { StyledTheme } from "../models/styled-themes";
 import { Action } from "@ngrx/store";
+import { StyledTheme } from "../shared/models/styled-themes";
 
 export enum ThemeActionTypes {
   ThemeChange = "[MAP] THEME_CHANGE"

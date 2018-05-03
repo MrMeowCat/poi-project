@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { } from '@types/googlemaps';
-import { StyledTheme } from '../../models/styled-themes';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { State } from "../../store/states";
+import { State } from "../store/states";
+import { StyledTheme } from "../shared/models/styled-themes";
 
 @Component({
   selector: 'poi-map',

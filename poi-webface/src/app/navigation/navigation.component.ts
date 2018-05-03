@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from "../../services/user.service";
-import { User } from "../../models/user";
-import { AuthService } from "../../services/auth.service";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Store } from "@ngrx/store";
-import { StyledThemes } from "../../models/styled-themes";
-import { ThemeChangeAction } from "../../store/actions";
-import { State } from "../../store/states";
-import { ThemeService } from "../../services/theme.service";
+import { ThemeChangeAction } from "../store/actions";
+import { State } from "../store/states";
+import { User } from "../shared/models/user";
+import { UserService } from "../shared/services/user.service";
+import { ThemeService } from "../shared/services/theme.service";
+import { AuthService } from "../shared/services/auth.service";
+import { StyledThemes } from "../shared/models/styled-themes";
 
 declare const $: any;
 
