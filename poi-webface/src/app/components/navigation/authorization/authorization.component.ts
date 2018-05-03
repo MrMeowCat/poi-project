@@ -21,7 +21,8 @@ export class AuthorizationComponent implements OnInit {
   @Output() successSignUp = new EventEmitter();
 
   constructor(private authService: AuthService,
-              private signUpService: SignUpService) { }
+              private signUpService: SignUpService) {
+  }
 
   ngOnInit() {
   }
@@ -29,13 +30,11 @@ export class AuthorizationComponent implements OnInit {
   onLogin($event) {
     this.loginSuccess = true;
 
-    this.authService.login($event.loginRequest, $event.rememberMeParam)
-      .then(res => {
-        this.successLogin.emit();
-      })
-      .catch(err => {
-        this.loginSuccess = false;
-      });
+    this.authService.login($event.loginRequest, $event.rememberMeParam).subscribe(user => {
+      this.successLogin.emit();
+    }, err => {
+      this.loginSuccess = false;
+    });
   }
 
   onSignUp($event) {
@@ -44,16 +43,14 @@ export class AuthorizationComponent implements OnInit {
     this.passwordValid = true;
     this.confirmValid = true;
 
-    this.signUpService.signUp($event)
-      .then(res => {
-        console.log("success sign up");
-        this.successSignUp.emit();
-      })
-      .catch(err => {
-        if (err.error) {
-          this.handleSignUpErrors(err.error.errors);
-        }
-      });
+    this.signUpService.signUp($event).subscribe(res => {
+      console.log("success sign up");
+      this.successSignUp.emit();
+    }, err => {
+      if (err.error) {
+        this.handleSignUpErrors(err.error.errors);
+      }
+    });
   }
 
   private handleSignUpErrors(errors: Array<string>) {

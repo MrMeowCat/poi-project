@@ -39,9 +39,13 @@ export class NavigationComponent implements OnInit {
     });
 
     this.themeService.getCurrentTheme().subscribe(theme => {
-      console.log(theme);
-      const styledTheme = this.themeService.convertTheme(theme);
-      console.log(styledTheme);
+      let styledTheme;
+      try {
+        styledTheme = this.themeService.convertTheme(theme);
+      } catch (e) {
+        console.log("Failed to convert theme. Using defualt theme.");
+        styledTheme = StyledThemes.Standard;
+      }
       this.store.dispatch(new ThemeChangeAction(styledTheme));
     }, err => {
       console.log("Theme pre-load failed");
@@ -62,21 +66,25 @@ export class NavigationComponent implements OnInit {
     });
 
     this.themeService.getCurrentTheme().subscribe(theme => {
-      console.log(theme);
-      this.store.dispatch(new ThemeChangeAction(StyledThemes.Standard));
+      let styledTheme;
+      try {
+        styledTheme = this.themeService.convertTheme(theme);
+      } catch ( e ) {
+        console.log("Failed to convert theme. Using defualt theme.");
+        styledTheme = StyledThemes.Standard;
+      }
+      this.store.dispatch(new ThemeChangeAction(styledTheme));
     }, err => {
       console.log(err);
     });
   }
 
   onLogout($event) {
-    this.authService.logout()
-      .then(res => {
-        this.user = undefined;
-      })
-      .catch(err => {
-        console.log("failed to sign out");
-      });
+    this.authService.logout().subscribe(res => {
+      this.user = undefined;
+    }, err => {
+      console.log("failed to sign out");
+    });
   }
 
   onLocaleChange(locale: string) {
