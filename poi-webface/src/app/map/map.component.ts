@@ -3,7 +3,7 @@ import { } from '@types/googlemaps';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { State } from "../store/states";
-import { StyledTheme } from "../shared/models/styled-themes";
+import { Theme } from "../shared/models/theme";
 
 @Component({
   selector: 'poi-map',
@@ -15,7 +15,7 @@ export class MapComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
 
-  selectedTheme$: Observable<StyledTheme>;
+  selectedTheme$: Observable<Theme>;
 
   constructor(private store: Store<State>) {
     this.selectedTheme$ = this.store.select(state => state.theme);
@@ -48,7 +48,11 @@ export class MapComponent implements OnInit {
     });
 
     this.selectedTheme$.subscribe(theme => {
-      this.map.mapTypes.set(theme.name, theme.theme);
+      let style = theme.style;
+      if (typeof theme.style === 'string') {
+        style = JSON.parse(style);
+      }
+      this.map.mapTypes.set(theme.name, new google.maps.StyledMapType(style));
       this.map.setMapTypeId(theme.name);
     });
   }

@@ -7,15 +7,19 @@ class ThemeDto(id: String? = null) : AbstractDto(id) {
 
     var name: String = ""
     var style: String = ""
+    var mapVendor: String = ""
 
-    constructor(name: String, style: String) : this() {
+    constructor(name: String, style: String, mapVendor: String) : this() {
         this.name = name
         this.style = style
+        this.mapVendor = mapVendor
     }
 
-    constructor(id: String, name: String, style: String) : this(id) {
+    constructor(id: String, name: String, style: String, mapVendor: String)
+            : this(id) {
         this.id = id
         this.name = name
         this.style = style
+        this.mapVendor = mapVendor
     }
 }

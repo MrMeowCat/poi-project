@@ -4,7 +4,6 @@ import { HttpService } from "./http.service";
 import { Observable } from "rxjs/Observable";
 import { Theme } from "../models/theme";
 import { Urls } from "../utils/urls";
-import { StyledTheme } from "../models/styled-themes";
 
 @Injectable()
 export class ThemeService {
@@ -18,21 +17,32 @@ export class ThemeService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get(Urls.CURRENT_THEME_URL, options);
+    return this.http.get<Theme>(Urls.CURRENT_THEME_URL, options).map(theme => {
+      theme.custom = true;
+      return theme;
+    });
   }
 
   getTheme(id: string): Observable<Theme> {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get(Urls.THEMES_URL + "/" + id, options);
+    return this.http.get<Theme>(Urls.THEMES_URL + "/" + id, options).map(theme => {
+      theme.custom = true;
+      return theme;
+    });
   }
 
-  getThemes(): Observable<Theme[]> {
+  getThemes(withDefault = false): Observable<Theme[]> {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get(Urls.THEMES_URL, options);
+    return this.http.get<Theme[]>(Urls.THEMES_URL, options).map(themes => {
+      themes.forEach(theme => {
+        theme.custom = true;
+      });
+      return themes;
+    });
   }
 
   createTheme(theme: Theme): Observable<Theme> {
@@ -42,9 +52,12 @@ export class ThemeService {
     return this.http.post(Urls.THEMES_URL, theme, options);
   }
 
-  updateTheme(theme: Theme): Observable<any> {
+  updateTheme(theme: Theme, change = false): Observable<any> {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
+    options.params = {
+      change
+    };
     this.authService.setCsrfHeader(options);
     return this.http.put(Urls.THEMES_URL, theme, options);
   }
@@ -54,13 +67,5 @@ export class ThemeService {
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
     return this.http.delete(Urls.THEMES_URL + "/" + id, options);
-  }
-
-  convertTheme(theme: Theme): StyledTheme {
-    const style = JSON.parse(theme.style);
-    return {
-      name: theme.name,
-      theme: new google.maps.StyledMapType(style)
-    }
   }
 }

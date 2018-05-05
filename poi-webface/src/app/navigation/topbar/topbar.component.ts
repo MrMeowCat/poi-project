@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from "@ngx-translate/core";
-import { Store } from "@ngrx/store";
-import { ThemeChangeAction } from "../../store/actions";
-import { State } from "../../store/states";
-import { StyledTheme, StyledThemeArray } from "../../shared/models/styled-themes";
+import { DefaultThemeArray } from "../../shared/models/default-themes";
 import { Constants } from "../../shared/utils/constants";
 import { User } from "../../shared/models/user";
 import { UserService } from "../../shared/services/user.service";
+import { Theme } from "../../shared/models/theme";
 
 declare var $:any;
 
@@ -17,8 +15,7 @@ declare var $:any;
 })
 export class TopbarComponent implements OnInit {
 
-  themeArray = StyledThemeArray;
-  selectedTheme: StyledTheme;
+  themeArray = DefaultThemeArray;
   userPopupVisible = false;
   langPopupVisible = false;
   themePopupVisible = false;
@@ -27,17 +24,16 @@ export class TopbarComponent implements OnInit {
   file: File;
 
   @Input() user: User;
+  @Input() selectedTheme: Theme;
+  @Input() customThemes: Theme[];
   @Output() loginClick = new EventEmitter();
   @Output() logoutClick = new EventEmitter();
   @Output() localeChange = new EventEmitter<string>();
   @Output() avatarChange = new EventEmitter<any>();
+  @Output() themeChange = new EventEmitter<Theme>();
 
   constructor(private translateService: TranslateService,
-              private userService: UserService,
-              private store: Store<State>) {
-    this.store.select(state => state.theme).subscribe(theme => {
-      this.selectedTheme = theme;
-    });
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -91,7 +87,8 @@ export class TopbarComponent implements OnInit {
     avatar.click();
   }
 
-  changeTheme(theme: StyledTheme) {
-    this.store.dispatch(new ThemeChangeAction(theme));
+  changeTheme(theme: Theme) {
+    if (theme == this.selectedTheme) return;
+    this.themeChange.emit(theme);
   }
 }

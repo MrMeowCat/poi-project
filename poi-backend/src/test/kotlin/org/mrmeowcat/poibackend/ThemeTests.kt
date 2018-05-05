@@ -38,6 +38,9 @@ class ThemeTests {
         theme.style = json
         theme.userId = users[0].id
 
+        repositories.themes.save(theme)
+        users[0].themeId = theme.id
+        repositories.users.save(users[0])
 
         val theme1 = Theme()
         theme1.name = "Standard"
@@ -45,15 +48,13 @@ class ThemeTests {
         theme1.userId = users[1].id
 
 
-        repositories.themes.save(theme)
+        val theme2 = Theme()
+        theme2.name = "NonDefault"
+        theme2.style = json
+        theme2.userId = users[0].id
 
-        users[0].themeId = theme.id
-
-        repositories.users.save(users[0])
-
-
-//        repositories.themes.save(theme)
         repositories.themes.save(theme1)
+        repositories.themes.save(theme2)
     }
 
     @After

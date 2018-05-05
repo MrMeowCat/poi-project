@@ -26,11 +26,19 @@ import javax.servlet.http.HttpServletResponse
 class UserController : AbstractController() {
 
     companion object {
-        @JvmField val LOGGER = LoggerFactory.getLogger(UserController::class.java)
+        @JvmField
+        val LOGGER = LoggerFactory.getLogger(UserController::class.java)
+    }
+
+    @GetMapping("isAuthenticated")
+    fun isAuthenticated(request: HttpServletRequest): ResponseEntity<Any> {
+        val user = getCurrentUser()
+        user ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        return ResponseEntity.ok().build()
     }
 
     @GetMapping("currentUser")
-    fun getCurrentUser(request: HttpServletRequest) : ResponseEntity<*> {
+    fun getCurrentUser(request: HttpServletRequest): ResponseEntity<*> {
         val user = getCurrentUser()!!
         val userDto = mapper.map(user, UserDto::class)
         return ResponseEntity.ok(userDto)
@@ -43,14 +51,14 @@ class UserController : AbstractController() {
     }
 
     @PostMapping("signUp")
-    fun signUp(@RequestBody signUpRequest: SignUpRequest?) : ResponseEntity<*> {
+    fun signUp(@RequestBody signUpRequest: SignUpRequest?): ResponseEntity<*> {
         val response = services.signUpService.signUp(signUpRequest)
         return ResponseEntity.ok(response)
     }
 
     @PutMapping("setLocale")
     fun setLocale(@RequestParam("locale", required = true) locale: String = "en",
-                  response: HttpServletResponse) : ResponseEntity<Any> {
+                  response: HttpServletResponse): ResponseEntity<Any> {
         val user = getCurrentUser()
 
         if (user != null) {

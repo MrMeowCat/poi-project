@@ -8,7 +8,9 @@ import { User } from "../shared/models/user";
 import { UserService } from "../shared/services/user.service";
 import { ThemeService } from "../shared/services/theme.service";
 import { AuthService } from "../shared/services/auth.service";
-import { StyledThemes } from "../shared/models/styled-themes";
+import { DefaultThemeArray, DefaultThemes } from "../shared/models/default-themes";
+import { Theme } from "../shared/models/theme";
+import { Constants } from "../shared/utils/constants";
 
 declare const $: any;
 
@@ -21,6 +23,8 @@ export class NavigationComponent implements OnInit {
 
   authContainerVisible: boolean = false;
   user: User;
+  selectedTheme: Theme = DefaultThemes.Standard;
+  customThemes: Theme[] = [];
 
   constructor(private userService: UserService,
               private themeService: ThemeService,
@@ -28,27 +32,30 @@ export class NavigationComponent implements OnInit {
               private translate: TranslateService,
               private cookies: CookieService,
               private store: Store<State>) {
+    this.store.select(state => state.theme).subscribe(theme => {
+      this.selectedTheme = theme;
+    });
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.user = user;
-      this.setLanguage(user.language);
-    }, err => {
-      console.log("Pre-auth failed");
-    });
+    this.authService.isAuthenticated().subscribe(yes => {
 
-    this.themeService.getCurrentTheme().subscribe(theme => {
-      let styledTheme;
-      try {
-        styledTheme = this.themeService.convertTheme(theme);
-      } catch (e) {
-        console.log("Failed to convert theme. Using defualt theme.");
-        styledTheme = StyledThemes.Standard;
-      }
-      this.store.dispatch(new ThemeChangeAction(styledTheme));
-    }, err => {
-      console.log("Theme pre-load failed");
+      this.userService.getCurrentUser().subscribe(user => {
+        this.user = user;
+        this.setLanguage(user.language);
+      });
+
+      this.themeService.getCurrentTheme().subscribe(
+        theme => this.successLoadThemeCb(theme),
+        err => this.failLoadThemeCb()
+      );
+
+      this.themeService.getThemes().subscribe(themes => {
+        this.customThemes = themes;
+      });
+    }, no => {
+      console.log("Pre-auth failed");
+      this.store.dispatch(new ThemeChangeAction(this.getThemeFromCookie()));
     });
   }
 
@@ -61,21 +68,15 @@ export class NavigationComponent implements OnInit {
       this.authContainerVisible = false;
       this.user = user;
       this.setLanguage(user.language);
-    }, err => {
-      console.log(err);
     });
 
-    this.themeService.getCurrentTheme().subscribe(theme => {
-      let styledTheme;
-      try {
-        styledTheme = this.themeService.convertTheme(theme);
-      } catch ( e ) {
-        console.log("Failed to convert theme. Using defualt theme.");
-        styledTheme = StyledThemes.Standard;
-      }
-      this.store.dispatch(new ThemeChangeAction(styledTheme));
-    }, err => {
-      console.log(err);
+    this.themeService.getCurrentTheme().subscribe(
+      theme => this.successLoadThemeCb(theme),
+      err => this.failLoadThemeCb()
+    );
+
+    this.themeService.getThemes().subscribe(themes => {
+      this.customThemes = themes;
     });
   }
 
@@ -105,8 +106,18 @@ export class NavigationComponent implements OnInit {
     this.user.avatarIcon = avatar.avatarIcon;
   }
 
+  onThemeChange(theme: Theme) {
+    this.store.dispatch(new ThemeChangeAction(theme));
+    if (theme.custom) {
+      this.themeService.updateTheme(theme, true).subscribe();
+    } else {
+      this.themeService.updateTheme(null, true).subscribe();
+      this.cookies.set(Constants.COOKIE_THEME, theme.name, 365);
+    }
+  }
+
   setLanguage(language) {
-    this.cookies.set('locale', language, 365);
+    this.cookies.set(Constants.COOKIE_LOCALE, language, 365);
     if (this.translate.currentLang != language) {
       this.translate.use(language);
     }
@@ -116,5 +127,21 @@ export class NavigationComponent implements OnInit {
     if ($($event.target).hasClass('auth-wrapper')) {
       this.authContainerVisible = false;
     }
+  }
+
+  private successLoadThemeCb(theme: Theme) {
+    this.cookies.delete(Constants.COOKIE_THEME);
+    this.store.dispatch(new ThemeChangeAction(theme));
+  }
+
+  private failLoadThemeCb() {
+    console.log("No selected themes. Apply default theme");
+    this.store.dispatch(new ThemeChangeAction(this.getThemeFromCookie()));
+  }
+
+  private getThemeFromCookie(): Theme {
+    const themeName = this.cookies.get(Constants.COOKIE_THEME);
+    return DefaultThemeArray.find(theme => theme.name == themeName)
+      || DefaultThemes.Standard;
   }
 }

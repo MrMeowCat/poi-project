@@ -26,11 +26,11 @@ class MongoThemeService : AbstractDBService(), ThemeService {
     @Autowired
     lateinit var objectMapper: ObjectMapper
 
-    override fun findByName(name: String): List<Theme> {
+    override fun findByName(name: String?): List<Theme> {
         return repositories.themes.findByName(name)
     }
 
-    override fun findByUserId(id: String): List<Theme> {
+    override fun findByUserId(id: String?): List<Theme> {
         return repositories.themes.findByUserId(id)
     }
 
@@ -38,7 +38,7 @@ class MongoThemeService : AbstractDBService(), ThemeService {
         return repositories.themes.findByIdAndUserId(id, userId)
     }
 
-    override fun existsByName(name: String): Boolean {
+    override fun existsByName(name: String?): Boolean {
         return repositories.themes.existsByName(name)
     }
 

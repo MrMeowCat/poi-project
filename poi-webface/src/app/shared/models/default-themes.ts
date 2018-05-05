@@ -1,15 +1,12 @@
-export interface StyledTheme {
-  name: string;
-  theme: google.maps.StyledMapType;
-}
+import { Theme } from "./theme";
 
-export const Standard: StyledTheme = {
+export const Standard: Theme = {
   name: 'Standard',
-  theme: new google.maps.StyledMapType([])
+  style: []
 };
-export const Silver: StyledTheme = {
+export const Silver: Theme = {
   name: 'Silver',
-  theme: new google.maps.StyledMapType([
+  style: [
     {
       elementType: "geometry",
       stylers: [
@@ -168,11 +165,11 @@ export const Silver: StyledTheme = {
         }
       ]
     }
-  ])
+  ]
 };
-export const Retro: StyledTheme = {
+export const Retro: Theme = {
   name: 'Retro',
-  theme: new google.maps.StyledMapType([
+  style: [
     {
       "elementType": "geometry",
       "stylers": [
@@ -386,11 +383,11 @@ export const Retro: StyledTheme = {
         }
       ]
     }
-  ])
+  ]
 };
-export const Dark: StyledTheme = {
+export const Dark: Theme = {
   name: 'Dark',
-  theme: new google.maps.StyledMapType([
+  style: [
     {
       "elementType": "geometry",
       "stylers": [
@@ -575,11 +572,11 @@ export const Dark: StyledTheme = {
         }
       ]
     }
-  ])
+  ]
 };
-export const Night: StyledTheme = {
+export const Night: Theme = {
   name: 'Night',
-  theme: new google.maps.StyledMapType([
+  style: [
     {
       "elementType": "geometry",
       "stylers": [
@@ -739,11 +736,11 @@ export const Night: StyledTheme = {
         }
       ]
     }
-  ])
+  ]
 };
-export const Aubergine: StyledTheme = {
+export const Aubergine: Theme = {
   name: 'Aubergine',
-  theme: new google.maps.StyledMapType([
+  style: [
     {
       "elementType": "geometry",
       "stylers": [
@@ -975,10 +972,10 @@ export const Aubergine: StyledTheme = {
         }
       ]
     }
-  ])
+  ]
 };
 
-export const StyledThemes = {
+export const DefaultThemes = {
   Standard,
   Silver,
   Retro,
@@ -987,7 +984,7 @@ export const StyledThemes = {
   Aubergine
 };
 
-export const StyledThemeArray = [
+export const DefaultThemeArray = [
   Standard,
   Silver,
   Retro,

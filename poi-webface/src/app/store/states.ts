@@ -1,5 +1,5 @@
-import { StyledTheme } from "../shared/models/styled-themes";
+import { Theme } from "../shared/models/theme";
 
 export interface State {
-  theme: StyledTheme;
+  theme: Theme;
 }

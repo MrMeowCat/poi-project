@@ -1,5 +1,7 @@
 export class Theme {
-  id: string;
+  id?: string;
   name: string;
-  style: string;
+  custom?: boolean = false;
+  mapVendor?: string;
+  style: any;
 }

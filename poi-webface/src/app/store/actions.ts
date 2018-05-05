@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { StyledTheme } from "../shared/models/styled-themes";
+import { Theme } from "../shared/models/theme";
 
 export enum ThemeActionTypes {
   ThemeChange = "[MAP] THEME_CHANGE"
@@ -9,7 +9,7 @@ export type ActionTypes = ThemeActionTypes
 
 export class ThemeChangeAction implements Action {
   readonly type: ThemeActionTypes = ThemeActionTypes.ThemeChange;
-  constructor(public payload: StyledTheme) { }
+  constructor(public payload: Theme) { }
 }
 
 export type Actions = ThemeChangeAction

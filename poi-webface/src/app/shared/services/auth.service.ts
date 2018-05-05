@@ -35,6 +35,13 @@ export class AuthService {
     });
   }
 
+  isAuthenticated(): Observable<any> {
+    const options = this.http.getDefaultOptions();
+    options.withCredentials = true;
+    this.setCsrfHeader(options);
+    return this.http.get(Urls.IS_AUTHENTICATED_URL, options);
+  }
+
   setCsrfHeader(options: RequestOptions) {
     let csrfToken = this.cookies.get(AuthService.CSRF_TOKEN_COOKIE);
     if (csrfToken) {

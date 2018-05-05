@@ -1,10 +1,11 @@
 import { ActionReducerMap } from "@ngrx/store";
 import { ThemeChangeAction } from "./actions";
 import { State } from "./states";
-import { StyledTheme, StyledThemes } from "../shared/models/styled-themes";
+import { DefaultThemes } from "../shared/models/default-themes";
+import { Theme } from "../shared/models/theme";
 
-export function themeChangeReducer(state: StyledTheme = StyledThemes.Standard, action: ThemeChangeAction)
-  : StyledTheme {
+export function themeChangeReducer(state: Theme = DefaultThemes.Standard, action: ThemeChangeAction)
+  : Theme {
   return action.payload || state;
 }
 

@@ -5,6 +5,7 @@ export class Urls {
   static readonly LOGIN_URL = Urls.BASE_PATH + "/login";
   static readonly SIGN_UP_URL = Urls.BASE_PATH + "/signUp";
   static readonly LOGOUT_URL = Urls.BASE_PATH + "/logout";
+  static readonly IS_AUTHENTICATED_URL = Urls.BASE_PATH + "/isAuthenticated";
 
   static readonly USERS_URL = Urls.BASE_PATH + "/users";
   static readonly CURRENT_USER_URL = Urls.BASE_PATH + "/currentUser";

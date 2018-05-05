@@ -18,4 +18,5 @@ class Theme : AbstractDocument() {
     @NoVersioning
     var userId: String? = null
 
+    var mapVendor: String = ""
 }

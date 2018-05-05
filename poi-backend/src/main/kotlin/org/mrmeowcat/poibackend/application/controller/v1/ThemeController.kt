@@ -29,6 +29,7 @@ class ThemeController : AbstractController() {
     @GetMapping("currentTheme")
     fun getCurrentTheme(): ResponseEntity<ThemeDto> {
         val user = getCurrentUser()!!
+        user.themeId ?: return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
         val theme = services.themes.findById(user.themeId!!)
         val themeDto = mapper.map(theme, ThemeDto::class)
         return ResponseEntity.ok(themeDto)
@@ -58,6 +59,7 @@ class ThemeController : AbstractController() {
         val theme = Theme()
         theme.name = themeDto.name
         theme.style = themeDto.style
+        theme.mapVendor = themeDto.mapVendor
         theme.userId = user.id
         services.themes.save(theme)
         themeDto.id = theme.id
@@ -66,13 +68,24 @@ class ThemeController : AbstractController() {
 
     @PutMapping("themes")
     fun updateTheme(@RequestBody themeDto: ThemeDto?,
-                    @RequestParam("change", required = false) change: Boolean = false): ResponseEntity<Any> {
-        themeDto ?: return ResponseEntity.badRequest().build()
+                    @RequestParam("change", required = false) change: Boolean = false)
+            : ResponseEntity<Any> {
+        /* reset current user theme */
+        if (change && themeDto == null) {
+            val user = getCurrentUser()!!
+            user.themeId = null
+            services.users.save(user)
+            return ResponseEntity.ok().build()
+        }
+
+        themeDto?.id ?: return ResponseEntity.badRequest().build()
         val theme = services.themes.findById(themeDto.id!!)
         theme.name = themeDto.name
         theme.style = themeDto.style
+        theme.mapVendor = themeDto.mapVendor
         services.themes.save(theme)
 
+        /* update current user theme */
         if (change) {
             val user = getCurrentUser()!!
             user.themeId = theme.id

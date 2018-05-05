@@ -32,6 +32,11 @@
            (click)="changeTheme(theme)">
           {{theme.name}}
         </a>
+        <a *ngFor="let theme of customThemes"
+           [class]="theme.name == selectedTheme.name ? 'active' : ''"
+           (click)="changeTheme(theme)">
+          {{theme.name}}
+        </a>
       </div>
     </a>
   </div>

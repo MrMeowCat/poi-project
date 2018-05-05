@@ -11,4 +11,7 @@ export class Constants {
     "us": "English US",
     "ru": "Русский"
   };
+
+  static COOKIE_LOCALE = "_locale";
+  static COOKIE_THEME = "_theme";
 }

@@ -13,8 +13,8 @@ class Theme2ThemeDtoMapper : Mapper<Theme, ThemeDto> {
     override fun map(e: Theme): ThemeDto {
         val name = e.name!!
         val style = e.style!!
-        val dto = ThemeDto(name, style)
-        dto.id = e.id
-        return dto
+        val mapVendor = e.mapVendor
+        val id = e.id!!
+        return ThemeDto(id, name, style, mapVendor)
     }
 }
