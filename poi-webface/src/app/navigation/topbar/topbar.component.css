@@ -1,34 +1,41 @@
-.top-login-btn {
-  padding: 11px;
-  background: #ffe800;
-  font-weight: bold;
-  border-radius: 2px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
-  min-width: 90px;
-}
-.top-user {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  display: block;
-  background: #fafafa;
-  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.4);
-  border-radius: 50%;
-}
-.top-user > img {
+.top {
   width: 100%;
+  height: 50px;
+  background: #2a2a2a;
+  padding: 0 20px;
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,0.33);
+}
+.top-right {
   height: 100%;
-  border-radius: 50%;
+}
+.top-right > div {
+  position: relative;
+}
+.top-right > div > a {
+  position: relative;
+  padding: 10px;
+  font-size: 0.8em;
+  font-weight: 500;
+  color: #ffe800;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+.top-right > div > a:hover {
+  color: #fff;
+}
+.top-user-btn > i {
+  font-size: 1.4em;
+  margin-left: 16px;
 }
 .top-popup {
   display: block;
-  position: relative;
+  position: absolute;
   float: left;
-  top: 24px;
-  left: -10px;
+  top: 70px;
+  right: 0;
   min-width: 220px;
   background: #fafafa;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.3);
   border-radius: 2px;
   z-index: 12;
 }
@@ -36,11 +43,11 @@
   position: absolute;
   content: '';
   top: -16px;
-  left: 24px;
+  right: 24px;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
   border-bottom: 16px solid #fafafa;
-  filter: drop-shadow(0 -2px 1px rgba(0,0,0,0.066));
+  filter: drop-shadow(0 -2px 3px rgba(0,0,0,0.08));
 }
 .top-popup > a, .top-popup > a {
   display: block;
@@ -49,6 +56,7 @@
   line-height: 3em;
   font-weight: 600;
   font-size: 0.75em;
+  color: #2a2a2a;
   border-bottom: 1px solid #ebebeb;
   transition: all 0.2s ease;
 }
@@ -58,29 +66,30 @@
 .top-popup > a:hover, .top-popup > a:hover {
   color: #ff0000;
 }
-.top-lang-popup {
-  left: -20px;
+.top-user-popup > div {
+  width: 100%;
+  border-bottom: 1px solid #ebebeb;
 }
-.top-user-popup > h3 {
+.top-user-popup > div > img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+}
+.top-user-popup > div > h3 {
   display: block;
   width: 100%;
-  padding: 9px 24px;
   margin: 0;
   line-height: 3em;
   font-weight: 700;
+  text-align: center;
   font-size: 1em;
-  border-bottom: 1px solid #ebebeb;
 }
-.top-lang {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  display: block;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
-  border-radius: 50%;
+.top-lang-popup {
+  right: -86px;
 }
-.top-lang > img {
-  width: 100%;
+.top-lang-popup:before {
+  right: 86px;
 }
 .top-lang-popup > a {
   display: flex;
@@ -93,18 +102,13 @@
   color: #ff0000;
 }
 .top-theme {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  display: block;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.4);
-  border-radius: 50%;
-}
-.top-theme > img {
-  width: 100%;
+  font-size: 1em !important;
 }
 .top-theme-popup {
-  left: -20px;
+  right: -100px;
+}
+.top-theme-popup:before {
+  right: 100px;
 }
 .top-theme-popup > a {
   display: flex;

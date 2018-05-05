@@ -44,11 +44,32 @@ export class TopbarComponent implements OnInit {
   }
 
   emitLogoutClick() {
+    this.hidePopups(null);
     this.logoutClick.emit();
   }
 
   emitLocaleChange(locale: string, $event) {
+    this.hidePopups(null);
     this.localeChange.emit(locale);
+  }
+
+  changeTheme(theme: Theme) {
+    if (theme == this.selectedTheme) return;
+    this.themeChange.emit(theme);
+  }
+
+  openAvatarFileDialog() {
+    const avatar = $('#av');
+    avatar.on('change', e => {
+      const file = e.target.files[0];
+      this.userService.setAvatar(file).subscribe(res => {
+        console.log(res);
+        this.avatarChange.emit(res);
+      }, err => {
+        console.log(err);
+      });
+    });
+    avatar.click();
   }
 
   currentLanguage() : string {
@@ -71,24 +92,5 @@ export class TopbarComponent implements OnInit {
     this.userPopupVisible = false;
     this.langPopupVisible = false;
     this.themePopupVisible = false;
-  }
-
-  openAvatarFileDialog() {
-    const avatar = $('#av');
-    avatar.on('change', e => {
-      const file = e.target.files[0];
-      this.userService.setAvatar(file).subscribe(res => {
-        console.log(res);
-        this.avatarChange.emit(res);
-      }, err => {
-        console.log(err);
-      });
-    });
-    avatar.click();
-  }
-
-  changeTheme(theme: Theme) {
-    if (theme == this.selectedTheme) return;
-    this.themeChange.emit(theme);
   }
 }

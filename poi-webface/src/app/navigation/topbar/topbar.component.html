@@ -1,31 +1,12 @@
-<div class="top">
-  <div class="top-left flex-center-r p-20">
-    <button class="top-login-btn m-l-10" *ngIf="!user" (click)="emitLoginClick()">{{'NAV.SIGN_IN_BTN' | translate}}</button>
-    <a class="top-user m-l-10" *ngIf="user" (click)="toggleUserPopup()">
-      <img [src]="user.avatarIcon ? user.avatarIcon : '../../../../assets/img/def.png'"
-           >
-      <div class="top-popup top-user-popup" *ngIf="userPopupVisible">
-        <h3>{{user.username}}</h3>
-        <a>My Profile</a>
-        <a>Settings</a>
-        <a (click)="openAvatarFileDialog()">Set Avatar</a>
-        <a (click)="emitLogoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
-        <input id="av" type="file" style="display: none" accept="image/*">
-      </div>
-    </a>
-    <a class="top-lang m-l-30" (click)="toggleLangPopup()">
-      <img [src]="'../../../../assets/img/lang/' + currentLanguage() + '.svg'">
-      <div class="top-popup top-lang-popup" *ngIf="langPopupVisible">
-        <a *ngFor="let locale of locales"
-           [class]="locale == currentLanguage() ? 'flex-center-r active' : 'flex-center-r'"
-           (click)="emitLocaleChange(locale, $event)">
-          <img [src]="'../../../../assets/img/lang/' + locale + '.svg'" class="m-r-20">
-          {{languages[locale]}}
-        </a>
-      </div>
-    </a>
-    <a class="top-theme m-l-30" (click)="toggleThemePopup()">
-      <img src="../../../../assets/img/palette.svg">
+<div class="top flex-between">
+  <div class="top-left">
+
+  </div>
+  <div class="top-right flex-center-r">
+    <div>
+      <a class="top-theme m-l-20 flex-middle" (click)="toggleThemePopup()">
+        <i class="fas fa-paint-brush flex-middle"></i>
+      </a>
       <div class="top-popup top-theme-popup" *ngIf="themePopupVisible">
         <a *ngFor="let theme of themeArray"
            [class]="theme.name == selectedTheme.name ? 'active' : ''"
@@ -38,10 +19,42 @@
           {{theme.name}}
         </a>
       </div>
-    </a>
+    </div>
+    <div>
+      <a class="top-lang m-l-20 flex-middle" (click)="toggleLangPopup()">{{currentLanguage()}}</a>
+      <div class="top-popup top-lang-popup" *ngIf="langPopupVisible">
+        <a *ngFor="let locale of locales"
+           [class]="locale == currentLanguage() ? 'flex-center-r active' : 'flex-center-r'"
+           (click)="emitLocaleChange(locale, $event)">
+          <img [src]="'../../../../assets/img/lang/' + locale + '.svg'" class="m-r-20">
+          {{languages[locale]}}
+        </a>
+      </div>
+    </div>
+    <div>
+      <a class="top-login-btn m-l-20 flex-middle" *ngIf="!user" (click)="emitLoginClick()">
+        {{'NAV.SIGN_IN_BTN' | translate}}
+      </a>
+    </div>
+    <div>
+      <a class="top-user-btn m-l-20 flex-middle" *ngIf="user" (click)="toggleUserPopup()">
+        {{user.username}}
+        <i class="fas fa-ellipsis-v"></i>
+      </a>
+      <div class="top-popup top-user-popup" *ngIf="userPopupVisible">
+        <div class="flex-column-middle p-t-20">
+          <img [src]="user.avatarIcon"/>
+          <h3>{{user.username}}</h3>
+        </div>
+        <a>My Profile</a>
+        <a>Settings</a>
+        <a (click)="openAvatarFileDialog()">Set Avatar</a>
+        <a (click)="emitLogoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
+        <input id="av" type="file" style="display: none" accept="image/*">
+      </div>
+    </div>
   </div>
-
-
 </div>
+
 <div class="overflow" *ngIf="userPopupVisible || langPopupVisible || themePopupVisible"
      (click)="hidePopups($event)"></div>
