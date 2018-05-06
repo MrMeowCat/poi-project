@@ -26,6 +26,7 @@ export class TopbarComponent implements OnInit {
   @Input() user: User;
   @Input() selectedTheme: Theme;
   @Input() customThemes: Theme[];
+  @Output() hamClick = new EventEmitter();
   @Output() loginClick = new EventEmitter();
   @Output() logoutClick = new EventEmitter();
   @Output() localeChange = new EventEmitter<string>();
@@ -37,6 +38,10 @@ export class TopbarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  emitHamClick() {
+    this.hamClick.emit();
   }
 
   emitLoginClick() {

@@ -1,10 +1,16 @@
 <div class="top flex-between">
-  <div class="top-left">
-
+  <div class="top-left flex">
+    <a class="top-ham flex-middle" (click)="emitHamClick()"><i class="fas fa-bars"></i></a>
+    <span class="top-separator"></span>
+    <a class="top-logo flex-middle">
+      <i class="fas fa-map-marker-alt"></i>
+      POINTS
+    </a>
   </div>
+
   <div class="top-right flex-center-r">
     <div>
-      <a class="top-theme m-l-20 flex-middle" (click)="toggleThemePopup()">
+      <a class="top-theme-btn flex-middle" (click)="toggleThemePopup()">
         <i class="fas fa-paint-brush flex-middle"></i>
       </a>
       <div class="top-popup top-theme-popup" *ngIf="themePopupVisible">
@@ -21,7 +27,9 @@
       </div>
     </div>
     <div>
-      <a class="top-lang m-l-20 flex-middle" (click)="toggleLangPopup()">{{currentLanguage()}}</a>
+      <a class="top-lang-btn flex-middle" (click)="toggleLangPopup()">
+        {{currentLanguage().toUpperCase()}}
+      </a>
       <div class="top-popup top-lang-popup" *ngIf="langPopupVisible">
         <a *ngFor="let locale of locales"
            [class]="locale == currentLanguage() ? 'flex-center-r active' : 'flex-center-r'"
@@ -32,12 +40,12 @@
       </div>
     </div>
     <div>
-      <a class="top-login-btn m-l-20 flex-middle" *ngIf="!user" (click)="emitLoginClick()">
+      <a class="top-login-btn flex-middle" *ngIf="!user" (click)="emitLoginClick()">
         {{'NAV.SIGN_IN_BTN' | translate}}
       </a>
     </div>
     <div>
-      <a class="top-user-btn m-l-20 flex-middle" *ngIf="user" (click)="toggleUserPopup()">
+      <a class="top-user-btn flex-middle" *ngIf="user" (click)="toggleUserPopup()">
         {{user.username}}
         <i class="fas fa-ellipsis-v"></i>
       </a>
