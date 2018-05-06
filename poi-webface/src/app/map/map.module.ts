@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MapComponent } from "./map.component";
 import { mapRouter } from "./map.router";
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { mapRouter } from "./map.router";
     mapRouter
   ],
   declarations: [
-    MapComponent
+    MapComponent,
+    SidebarComponent
   ]
 })
 export class MapModule {

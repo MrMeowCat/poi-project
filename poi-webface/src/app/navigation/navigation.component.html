@@ -3,6 +3,7 @@
   <poi-topbar [user]="user"
               [selectedTheme]="selectedTheme"
               [customThemes]="customThemes"
+              (hamClick)="onHamClick($event)"
               (loginClick)="onLoginClick($event)"
               (logoutClick)="onLogout($event)"
               (localeChange)="onLocaleChange($event)"

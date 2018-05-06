@@ -2,7 +2,7 @@
   width: 100%;
   height: 50px;
   background: #2a2a2a;
-  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.5);
 }
 .top a {
   user-select: none;
@@ -80,7 +80,7 @@
   right: 20px;
   min-width: 220px;
   background: #fafafa;
-  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.35);
   border-radius: 2px;
   z-index: 12;
 }
@@ -92,7 +92,7 @@
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
   border-bottom: 16px solid #fafafa;
-  filter: drop-shadow(0 -2px 3px rgba(0,0,0,0.08));
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.12));
 }
 .top-popup > a, .top-popup > a {
   display: block;

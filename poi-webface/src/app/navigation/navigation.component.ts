@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Store } from "@ngrx/store";
-import { ThemeChangeAction } from "../store/actions";
+import { SidebarToggleAction, ThemeChangeAction } from "../store/actions";
 import { State } from "../store/states";
 import { User } from "../shared/models/user";
 import { UserService } from "../shared/services/user.service";
@@ -57,6 +57,10 @@ export class NavigationComponent implements OnInit {
       console.log("Pre-auth failed");
       this.store.dispatch(new ThemeChangeAction(this.getThemeFromCookie()));
     });
+  }
+
+  onHamClick($event) {
+    this.store.dispatch(new SidebarToggleAction());
   }
 
   onLoginClick($event) {

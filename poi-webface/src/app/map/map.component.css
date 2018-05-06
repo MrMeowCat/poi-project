@@ -1,7 +1,11 @@
-#map {
-  width: 100%;
+.map-container {
   position: fixed !important;
   top: 50px;
   left: 0;
+  right: 0;
   bottom: 0;
+}
+#map {
+  width: 100%;
+  height: 100%;
 }
