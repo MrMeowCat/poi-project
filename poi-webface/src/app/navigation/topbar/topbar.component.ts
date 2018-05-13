@@ -28,6 +28,8 @@ export class TopbarComponent implements OnInit {
   @Input() customThemes: Theme[];
   @Output() hamClick = new EventEmitter();
   @Output() loginClick = new EventEmitter();
+  @Output() profileClick = new EventEmitter();
+  @Output() settingsClick = new EventEmitter();
   @Output() logoutClick = new EventEmitter();
   @Output() localeChange = new EventEmitter<string>();
   @Output() avatarChange = new EventEmitter<any>();
@@ -46,6 +48,16 @@ export class TopbarComponent implements OnInit {
 
   emitLoginClick() {
     this.loginClick.emit();
+  }
+
+  emitProfileClick() {
+    this.hidePopups(null);
+    this.profileClick.emit();
+  }
+
+  emitSettingsClick() {
+    this.hidePopups(null);
+    this.settingsClick.emit();
   }
 
   emitLogoutClick() {

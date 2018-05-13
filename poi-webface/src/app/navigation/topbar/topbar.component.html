@@ -10,23 +10,6 @@
 
   <div class="top-right flex-center-r">
     <div>
-      <a class="top-theme-btn flex-middle" (click)="toggleThemePopup()">
-        <i class="fas fa-paint-brush flex-middle"></i>
-      </a>
-      <div class="top-popup top-theme-popup" *ngIf="themePopupVisible">
-        <a *ngFor="let theme of themeArray"
-           [class]="theme.name == selectedTheme.name ? 'active' : ''"
-           (click)="changeTheme(theme)">
-          {{theme.name}}
-        </a>
-        <a *ngFor="let theme of customThemes"
-           [class]="theme.name == selectedTheme.name ? 'active' : ''"
-           (click)="changeTheme(theme)">
-          {{theme.name}}
-        </a>
-      </div>
-    </div>
-    <div>
       <a class="top-lang-btn flex-middle" (click)="toggleLangPopup()">
         {{currentLanguage().toUpperCase()}}
       </a>
@@ -54,9 +37,9 @@
           <img [src]="user.avatarIcon"/>
           <h3>{{user.username}}</h3>
         </div>
-        <a>My Profile</a>
-        <a>Settings</a>
-        <a (click)="openAvatarFileDialog()">Set Avatar</a>
+        <a (click)="emitProfileClick()">{{'NAV.PROFILE' | translate}}</a>
+        <a (click)="emitSettingsClick()">{{'NAV.SETTINGS' | translate}}</a>
+        <a (click)="openAvatarFileDialog()">{{'NAV.AVATAR' | translate}}</a>
         <a (click)="emitLogoutClick()">{{'NAV.SIGN_OUT_BTN' | translate}}</a>
         <input id="av" type="file" style="display: none" accept="image/*">
       </div>

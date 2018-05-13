@@ -5,12 +5,14 @@
               [customThemes]="customThemes"
               (hamClick)="onHamClick($event)"
               (loginClick)="onLoginClick($event)"
+              (profileClick)="onProfileClick($event)"
+              (settingsClick)="onSettingsClick($event)"
               (logoutClick)="onLogout($event)"
               (localeChange)="onLocaleChange($event)"
               (avatarChange)="onAvatarChange($event)"
               (themeChange)="onThemeChange($event)"></poi-topbar>
 
-  <div class="auth-wrapper flex-middle" *ngIf="authContainerVisible" (click)="hideAuthContainer($event)">
+  <div class="auth-wrapper flex-middle" *ngIf="authVisible" (click)="hideAuthContainer($event)">
     <poi-authorization (successLogin)="onSuccessLogin($event)"></poi-authorization>
   </div>
 

@@ -2,6 +2,9 @@
   "NAV": {
     "SIGN_IN_BTN":"Sign In",
     "SIGN_OUT_BTN":"Sign Out",
+    "SETTINGS":"Settings",
+    "PROFILE":"Profile",
+    "AVATAR":"Set Avatar",
 
     "AUTH": {
       "SIGN_IN_LBL":"Sign In",
@@ -22,5 +25,41 @@
         "SIGN_UP_BTN":"Sign Up"
       }
     }
+  },
+
+  "MAP": {
+
+    "SIDEBAR": {
+      "TAB_POINTS":"Points",
+      "TAB_THEMES":"Themes",
+      "TAB_PROFILE":"Profile",
+      "TAB_SETTINGS":"Settings",
+
+      "THEMES": {
+        "HEADER":"Customize Themes",
+        "HEADER_DESC":"Feel free to customize your map, all you need is to select one of the predefined themes, or import your own theme!",
+        "BTN_LOGIN":"Login to Import!",
+        "BTN_IMPORT":"Import Now!",
+        "TAB_DEFAULT":"Default",
+        "TAB_CUSTOM":"Custom",
+        "THEME_STANDARD":"Standard",
+        "THEME_SILVER":"Silver",
+        "THEME_RETRO":"Retro",
+        "THEME_LIGHT":"Light",
+        "THEME_GREYSCALE":"Greyscale",
+        "THEME_AUBERGINE":"Aubergine",
+        "MODAL_IMPORT_HEADER":"Import Theme",
+        "MODAL_IMPORT_NAME":"Name",
+        "MODAL_IMPORT_STYLE":"JSON code...",
+        "MODAL_IMPORT_NOTE":"<strong>Note:</strong> You can use these sites: <a href='https://snazzymaps.com/explore' target='_blank'>snazzymaps.com</a> or <a href='https://mapstyle.withgoogle.com' target='_blank'>mapstyle.withgoogle.com</a>"
+      }
+    }
+  },
+
+  "BUTTONS": {
+    "SAVE":"Save",
+    "OK":"Ok",
+    "DELETE":"Delete",
+    "CANCEL":"Cancel"
   }
 }

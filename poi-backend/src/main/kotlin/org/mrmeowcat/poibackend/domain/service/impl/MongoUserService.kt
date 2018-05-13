@@ -41,6 +41,10 @@ class MongoUserService : AbstractDBService(), UserService {
         repositories.users.delete(o)
     }
 
+    override fun deleteById(id: String) {
+        repositories.users.deleteById(id)
+    }
+
     override fun exists(o: User): Boolean {
         return repositories.users.exists(Example.of(o))
     }

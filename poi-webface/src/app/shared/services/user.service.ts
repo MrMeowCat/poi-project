@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from "./http.service";
 import { Observable } from "rxjs/Observable";
-import { Urls } from "../utils/urls";
+import { ApiUrls } from "../utils/urls";
 import { AuthService } from "./auth.service";
 import { HttpHeaders } from "@angular/common/http";
 
@@ -13,14 +13,14 @@ export class UserService {
   }
 
   getUser(id: string): Observable<any> {
-    return this.http.get(Urls.USERS_URL + `/${id}`);
+    return this.http.get(ApiUrls.USERS_URL + `/${id}`);
   }
 
   getCurrentUser(): Observable<any> {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get(Urls.CURRENT_USER_URL, options);
+    return this.http.get(ApiUrls.CURRENT_USER_URL, options);
   }
 
   setLocale(locale: string): Observable<any> {
@@ -30,7 +30,7 @@ export class UserService {
     };
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.put(Urls.SET_LOCALE_URL, null, options);
+    return this.http.put(ApiUrls.SET_LOCALE_URL, null, options);
   }
 
   setAvatar(file): Observable<any> {
@@ -41,6 +41,6 @@ export class UserService {
     this.authService.setCsrfHeader(options);
     const fd = new FormData();
     fd.append('file', file);
-    return this.http.put(Urls.SET_AVATAR_URL, fd, options);
+    return this.http.put(ApiUrls.SET_AVATAR_URL, fd, options);
   }
 }

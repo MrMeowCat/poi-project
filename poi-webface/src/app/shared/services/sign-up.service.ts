@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from "./http.service";
 import { SignUpRequest } from "../models/sign-up-request";
-import { Urls } from "../utils/urls";
+import { ApiUrls } from "../utils/urls";
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
@@ -11,6 +11,6 @@ export class SignUpService {
   }
 
   signUp(signUpRequest: SignUpRequest): Observable<any> {
-    return this.http.post(Urls.SIGN_UP_URL, signUpRequest);
+    return this.http.post(ApiUrls.SIGN_UP_URL, signUpRequest);
   }
 }

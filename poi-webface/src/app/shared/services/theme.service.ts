@@ -3,7 +3,7 @@ import { AuthService } from "./auth.service";
 import { HttpService } from "./http.service";
 import { Observable } from "rxjs/Observable";
 import { Theme } from "../models/theme";
-import { Urls } from "../utils/urls";
+import { ApiUrls } from "../utils/urls";
 
 @Injectable()
 export class ThemeService {
@@ -17,7 +17,7 @@ export class ThemeService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get<Theme>(Urls.CURRENT_THEME_URL, options).map(theme => {
+    return this.http.get<Theme>(ApiUrls.CURRENT_THEME_URL, options).map(theme => {
       theme.custom = true;
       return theme;
     });
@@ -27,7 +27,7 @@ export class ThemeService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get<Theme>(Urls.THEMES_URL + "/" + id, options).map(theme => {
+    return this.http.get<Theme>(ApiUrls.THEMES_URL + "/" + id, options).map(theme => {
       theme.custom = true;
       return theme;
     });
@@ -37,7 +37,7 @@ export class ThemeService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.get<Theme[]>(Urls.THEMES_URL, options).map(themes => {
+    return this.http.get<Theme[]>(ApiUrls.THEMES_URL, options).map(themes => {
       themes.forEach(theme => {
         theme.custom = true;
       });
@@ -49,7 +49,7 @@ export class ThemeService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.post(Urls.THEMES_URL, theme, options);
+    return this.http.post(ApiUrls.THEMES_URL, theme, options);
   }
 
   updateTheme(theme: Theme, change = false): Observable<any> {
@@ -59,13 +59,13 @@ export class ThemeService {
       change
     };
     this.authService.setCsrfHeader(options);
-    return this.http.put(Urls.THEMES_URL, theme, options);
+    return this.http.put(ApiUrls.THEMES_URL, theme, options);
   }
 
   deleteTheme(id: string): Observable<any> {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.authService.setCsrfHeader(options);
-    return this.http.delete(Urls.THEMES_URL + "/" + id, options);
+    return this.http.delete(ApiUrls.THEMES_URL + "/" + id, options);
   }
 }

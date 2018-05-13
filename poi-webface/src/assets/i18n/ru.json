@@ -2,6 +2,9 @@
   "NAV": {
     "SIGN_IN_BTN":"Вход",
     "SIGN_OUT_BTN":"Выход",
+    "SETTINGS":"Настройки",
+    "PROFILE":"Профиль",
+    "AVATAR":"Аватар",
 
     "AUTH": {
       "SIGN_IN_LBL":"Вход",
@@ -22,5 +25,41 @@
         "SIGN_UP_BTN":"Регистрация"
       }
     }
+  },
+
+  "MAP": {
+
+    "SIDEBAR": {
+      "TAB_POINTS":"Места",
+      "TAB_THEMES":"Стили",
+      "TAB_PROFILE":"Профиль",
+      "TAB_SETTINGS":"Настройки",
+
+      "THEMES": {
+        "HEADER":"Стилизация",
+        "HEADER_DESC":"Вы можете изменить внешний вид вашей карты, просто выберите одну из тем или импортируйте свою собственную!",
+        "BTN_LOGIN":"Войти для импорта",
+        "BTN_IMPORT":"Импортировать!",
+        "TAB_DEFAULT":"Стандартные",
+        "TAB_CUSTOM":"Свои",
+        "THEME_STANDARD":"Стандарт",
+        "THEME_SILVER":"Серебро",
+        "THEME_RETRO":"Ретро",
+        "THEME_LIGHT":"Светлая",
+        "THEME_GREYSCALE":"Серая",
+        "THEME_AUBERGINE":"Темно-синяя",
+        "MODAL_IMPORT_HEADER":"Импорт Стилей",
+        "MODAL_IMPORT_NAME":"Название",
+        "MODAL_IMPORT_STYLE":"JSON код...",
+        "MODAL_IMPORT_NOTE":"<strong>Заметка:</strong> Вы можете использовать эти сайты: <a href='https://snazzymaps.com/explore' target='_blank'>snazzymaps.com</a> или <a href='https://mapstyle.withgoogle.com' target='_blank'>mapstyle.withgoogle.com</a>"
+      }
+    }
+  },
+
+  "BUTTONS": {
+    "SAVE":"Сохранить",
+    "OK":"Ок",
+    "DELETE":"Удалить",
+    "CANCEL":"Отменить"
   }
 }

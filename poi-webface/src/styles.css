@@ -9,6 +9,8 @@ a, a:hover, a:visited, a:focus, button, button:hover, button:focus, button:visit
   outline: 0;
   border: none;
   cursor: pointer;
+  user-select: none;
+  text-decoration: none;
 }
 ul {
   list-style: none;

@@ -146,22 +146,3 @@
 .top-lang-popup > a.active {
   color: #00b49c;
 }
-.top-theme-btn {
-  font-size: 1em !important;
-}
-.top-theme-popup {
-  right: -90px;
-}
-.top-theme-popup:before {
-  right: 100px;
-}
-.top-theme-popup > a {
-  display: flex;
-}
-.top-theme-popup > a > img {
-  width: 30px;
-  height: 30px;
-}
-.top-theme-popup > a.active {
-  color: #00b49c;
-}

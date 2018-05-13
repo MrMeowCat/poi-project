@@ -3,6 +3,7 @@ package org.mrmeowcat.poibackend
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -103,6 +104,15 @@ class ThemeTests {
         println(repositories.themes.findByIdAndUserId(themes[0].id!!, user2.id!!))
         println(repositories.themes.findByIdAndUserId(null, user2.id!!))
 
+    }
+
+    @Test()
+    fun testDelete() {
+        val themes = repositories.themes.findAll();
+        repositories.themes.deleteById(themes[0].id!!)
+
+        val theme = repositories.themes.findById(themes[0].id!!);
+        Assert.assertFalse(theme.isPresent)
     }
 
 }

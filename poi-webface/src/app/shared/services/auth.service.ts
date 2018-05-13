@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService, RequestOptions } from "./http.service";
 import { LoginRequest } from "../models/login-request";
-import { Urls } from "../utils/urls";
+import { ApiUrls } from "../utils/urls";
 import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs/Observable";
 import { User } from "../models/user";
@@ -21,7 +21,7 @@ export class AuthService {
     const options = this.http.getDefaultOptions();
     options.params = rememberMeParam;
     options.withCredentials = true;
-    return this.http.post<User>(Urls.LOGIN_URL, loginRequest, options).map(user => {
+    return this.http.post<User>(ApiUrls.LOGIN_URL, loginRequest, options).map(user => {
       return user;
     });
   }
@@ -30,7 +30,7 @@ export class AuthService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.setCsrfHeader(options);
-    return this.http.post(Urls.LOGOUT_URL, null, options).map(r => {
+    return this.http.post(ApiUrls.LOGOUT_URL, null, options).map(r => {
       return undefined;
     });
   }
@@ -39,7 +39,7 @@ export class AuthService {
     const options = this.http.getDefaultOptions();
     options.withCredentials = true;
     this.setCsrfHeader(options);
-    return this.http.get(Urls.IS_AUTHENTICATED_URL, options);
+    return this.http.get(ApiUrls.IS_AUTHENTICATED_URL, options);
   }
 
   setCsrfHeader(options: RequestOptions) {

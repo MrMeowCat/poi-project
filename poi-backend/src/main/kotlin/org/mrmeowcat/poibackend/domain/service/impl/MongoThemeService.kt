@@ -72,6 +72,11 @@ class MongoThemeService : AbstractDBService(), ThemeService {
     }
 
     override fun delete(o: Theme) {
+        repositories.themes.delete(o)
+    }
+
+    override fun deleteById(id: String) {
+        repositories.themes.deleteById(id)
     }
 
     override fun exists(o: Theme): Boolean {

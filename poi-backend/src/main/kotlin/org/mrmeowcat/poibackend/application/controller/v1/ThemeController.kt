@@ -101,7 +101,13 @@ class ThemeController : AbstractController() {
         if (!services.themes.existsByIdAndUserId(themeId, user.id)) {
             return ResponseEntity.notFound().build()
         }
-        //delete
+
+        services.themes.deleteById(themeId!!)
+        if (user.themeId == themeId) {
+            user.themeId = null
+            services.users.save(user)
+        }
+
         return ResponseEntity.noContent().build()
     }
 }

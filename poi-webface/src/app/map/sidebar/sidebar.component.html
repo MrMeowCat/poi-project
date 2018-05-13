@@ -1,3 +1,39 @@
-<div [class]="isVisible ? 'sidebar active' : 'sidebar'">
-
+<div [class]="isVisible ? 'sidebar active flex-column' : 'sidebar flex-column'">
+  <div class="header flex">
+    <a [class]="sidebarTab == 0 ? 'header-tab flex-middle active' : 'header-tab flex-middle'"
+       (click)="setSidebarTab(0)">
+      {{'MAP.SIDEBAR.TAB_POINTS' | translate}}
+    </a>
+    <a [class]="sidebarTab == 1 ? 'header-tab flex-middle active' : 'header-tab flex-middle'"
+       (click)="setSidebarTab(1)">
+      {{'MAP.SIDEBAR.TAB_THEMES' | translate}}
+    </a>
+    <a [class]="sidebarTab == 2 ? 'header-tab flex-middle active' : 'header-tab flex-middle'"
+       (click)="setSidebarTab(2)" *ngIf="user">
+      {{'MAP.SIDEBAR.TAB_PROFILE' | translate}}
+    </a>
+    <a [class]="sidebarTab == 3 ? 'header-tab flex-middle active' : 'header-tab flex-middle'"
+       (click)="setSidebarTab(3)">
+      {{'MAP.SIDEBAR.TAB_SETTINGS' | translate}}
+    </a>
+  </div>
+  <div class="body">
+    <poi-sidebar-points *ngIf="sidebarTab == 0"></poi-sidebar-points>
+    <poi-sidebar-themes *ngIf="sidebarTab == 1"
+                        [user]="user"
+                        [themeTab]="themeTab"
+                        [themeImportVisible]="themeImportVisible"
+                        [selectedTheme]="selectedTheme"
+                        [customThemes]="customThemes"
+                        [themeImportValidationState]="themeImportValidationState"
+                        (themeChange)="onThemeChange($event)"
+                        (themeDelete)="onThemeDelete($event)"
+                        (themeImportSave)="onThemeImportSave($event)"
+                        (themeImportOpen)="onThemeImportOpen($event)"
+                        (themeImportClose)="onThemeImportClose($event)"
+                        (authShow)="onAuthShow($event)">
+    </poi-sidebar-themes>
+    <poi-sidebar-profile *ngIf="sidebarTab == 2"></poi-sidebar-profile>
+    <poi-sidebar-settings *ngIf="sidebarTab == 3"></poi-sidebar-settings>
+  </div>
 </div>

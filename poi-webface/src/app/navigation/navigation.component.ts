@@ -2,7 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Store } from "@ngrx/store";
-import { SidebarToggleAction, ThemeChangeAction } from "../store/actions";
+import {
+  AuthHideAction, AuthShowAction,
+  SidebarShowAction,
+  SidebarTabChangeAction,
+  SidebarToggleAction,
+  ThemeChangeAction,
+  ThemesLoadAction,
+  UserChangeAction
+} from "../store/actions";
 import { State } from "../store/states";
 import { User } from "../shared/models/user";
 import { UserService } from "../shared/services/user.service";
@@ -11,6 +19,7 @@ import { AuthService } from "../shared/services/auth.service";
 import { DefaultThemeArray, DefaultThemes } from "../shared/models/default-themes";
 import { Theme } from "../shared/models/theme";
 import { Constants } from "../shared/utils/constants";
+import { Observable } from "rxjs/Observable";
 
 declare const $: any;
 
@@ -21,10 +30,12 @@ declare const $: any;
 })
 export class NavigationComponent implements OnInit {
 
-  authContainerVisible: boolean = false;
+  authVisible: boolean;
   user: User;
   selectedTheme: Theme = DefaultThemes.Standard;
   customThemes: Theme[] = [];
+
+  authVisible$: Observable<boolean>;
 
   constructor(private userService: UserService,
               private themeService: ThemeService,
@@ -32,9 +43,14 @@ export class NavigationComponent implements OnInit {
               private translate: TranslateService,
               private cookies: CookieService,
               private store: Store<State>) {
+
+    this.authVisible$ = this.store.select(state => state.authVisible);
+
     this.store.select(state => state.theme).subscribe(theme => {
       this.selectedTheme = theme;
     });
+
+    this.authVisible$.subscribe(authVisible => this.authVisible = authVisible);
   }
 
   ngOnInit() {
@@ -43,6 +59,7 @@ export class NavigationComponent implements OnInit {
       this.userService.getCurrentUser().subscribe(user => {
         this.user = user;
         this.setLanguage(user.language);
+        this.store.dispatch(new UserChangeAction(this.user));
       });
 
       this.themeService.getCurrentTheme().subscribe(
@@ -52,6 +69,7 @@ export class NavigationComponent implements OnInit {
 
       this.themeService.getThemes().subscribe(themes => {
         this.customThemes = themes;
+        this.store.dispatch(new ThemesLoadAction(this.customThemes));
       });
     }, no => {
       console.log("Pre-auth failed");
@@ -64,14 +82,15 @@ export class NavigationComponent implements OnInit {
   }
 
   onLoginClick($event) {
-    this.authContainerVisible = true;
+    this.store.dispatch(new AuthShowAction());
   }
 
   onSuccessLogin($event) {
     this.userService.getCurrentUser().subscribe(user => {
-      this.authContainerVisible = false;
+      this.store.dispatch(new AuthHideAction());
       this.user = user;
       this.setLanguage(user.language);
+      this.store.dispatch(new UserChangeAction(this.user));
     });
 
     this.themeService.getCurrentTheme().subscribe(
@@ -81,12 +100,24 @@ export class NavigationComponent implements OnInit {
 
     this.themeService.getThemes().subscribe(themes => {
       this.customThemes = themes;
+      this.store.dispatch(new ThemesLoadAction(this.customThemes));
     });
+  }
+
+  onProfileClick($event) {
+    this.store.dispatch(new SidebarShowAction());
+    this.store.dispatch(new SidebarTabChangeAction(2));
+  }
+
+  onSettingsClick($event) {
+    this.store.dispatch(new SidebarShowAction());
+    this.store.dispatch(new SidebarTabChangeAction(3));
   }
 
   onLogout($event) {
     this.authService.logout().subscribe(res => {
       this.user = undefined;
+      this.store.dispatch(new UserChangeAction(undefined));
     }, err => {
       console.log("failed to sign out");
     });
@@ -129,7 +160,7 @@ export class NavigationComponent implements OnInit {
 
   hideAuthContainer($event) {
     if ($($event.target).hasClass('auth-wrapper')) {
-      this.authContainerVisible = false;
+      this.store.dispatch(new AuthHideAction());
     }
   }
 

@@ -1,15 +1,58 @@
 .sidebar {
   position: relative;
-  left: 0;
-  width: 0;
+  left: -540px;
+  width: 540px;
   height: 100%;
+  margin-left: -540px;
   box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0);
   background: #fafafa;
   z-index: 8;
-  transition: width 0.3s cubic-bezier(0.7,0,0.5,1);
+  transition: margin-left 0.3s cubic-bezier(0.7,0,0.5,1);
+  overflow: hidden;
 }
 .sidebar.active {
   left: 0;
-  width: 560px;
+  margin-left: 0;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.3);
+}
+.header {
+  height: 60px;
+}
+.header-tab {
+  width: 100%;
+  background: #fafafa;
+  border-bottom: 3px solid transparent;
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+  color: #777;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.header-tab:hover {
+  color: #00b49c;
+}
+.header-tab.active {
+  color: #00b49c;
+  border-bottom: 3px solid #00b49c;
+}
+
+
+.body {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+}
+.body::-webkit-scrollbar {
+  width: 6px;
+}
+.body::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+.body::-webkit-scrollbar-thumb {
+  background: #00b49c;
+}
+.body p {
+  font-size: 2em;
 }

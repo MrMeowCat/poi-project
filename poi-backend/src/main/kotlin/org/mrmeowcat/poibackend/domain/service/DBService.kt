@@ -15,5 +15,7 @@ interface DBService<T : AbstractDocument> {
 
     fun delete(o: T)
 
+    fun deleteById(id: String)
+
     fun exists(o: T) : Boolean
 }
